@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\RestablecerPasswordNotificacion;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -54,5 +55,14 @@ class User extends Authenticatable
             'retos_completados' => 'array',
             'minijuegos_progreso' => 'array',
         ];
+    }
+
+    // Reemplaza el correo de "olvide mi contrasena" que Laravel manda por
+    // defecto (Illuminate\Auth\Notifications\ResetPassword) por el nuestro,
+    // que sabe elegir entre mail normal (SMTP) o la API de Brevo segun
+    // donde este corriendo. Esto es lo que usa Password::sendResetLink().
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new RestablecerPasswordNotificacion($token));
     }
 }

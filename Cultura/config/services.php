@@ -22,6 +22,14 @@ return [
         'key' => env('RESEND_API_KEY'),
     ],
 
+    // Usado por App\Services\BrevoMailer para mandar correos por HTTP
+    // (Mailgun/Postmark/SES tambien sirven, pero Brevo es el unico que deja
+    // mandar a cualquier destinatario verificando solo un correo remitente,
+    // sin necesitar un dominio propio).
+    'brevo' => [
+        'key' => env('BREVO_API_KEY'),
+    ],
+
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),

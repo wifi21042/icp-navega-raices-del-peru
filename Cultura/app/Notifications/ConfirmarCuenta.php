@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Notifications\Channels\BrevoChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -21,7 +22,11 @@ class ConfirmarCuenta extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        // En Render (produccion) el puerto de SMTP esta bloqueado, asi que
+        // ahi se manda por la API de Brevo. En local, si no hay
+        // BREVO_API_KEY configurada, se sigue usando el mail normal (SMTP)
+        // como antes.
+        return config('services.brevo.key') ? [BrevoChannel::class] : ['mail'];
     }
 
     public function toMail(object $notifiable): MailMessage
