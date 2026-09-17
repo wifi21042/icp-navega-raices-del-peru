@@ -6,8 +6,7 @@ import { errorDeNombre } from '../../core/utils/validar-nombre';
 interface OpcionAvatar {
   id: string;
   emoji: string;
-  // "familia" dice que set de fotos usar (nina o nino): las 4 opciones de
-  // avatar comparten solo 2 familias de fotos por ahora.
+  // "familia" dice que set de fotos usar (nina o nino).
   familia: 'nina' | 'nino';
 }
 
@@ -37,11 +36,11 @@ export class Personalizar {
   // nombre "<familia>-<tono sin #>.png" (por ejemplo nina-f5d3a8.png).
   // Cuando el usuario cambia el tono de piel, la foto del personaje cambia
   // sola porque el nombre del archivo se arma con el tono seleccionado.
+  // Solo dos opciones: nina y nino (antes habia 4, pero las otras dos
+  // usaban las mismas fotos que estas, asi que no se notaba la diferencia).
   avatares: OpcionAvatar[] = [
     { id: 'nina', emoji: '👧', familia: 'nina' },
     { id: 'nino', emoji: '👦', familia: 'nino' },
-    { id: 'nina_flor', emoji: '👩', familia: 'nina' },
-    { id: 'nino_pluma', emoji: '🧑', familia: 'nino' },
   ];
 
   peinados: OpcionPeinado[] = [
