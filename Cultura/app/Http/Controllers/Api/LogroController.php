@@ -10,13 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class LogroController extends Controller
 {
-    // Los mismos 9 ids de accesorios que usa el frontend (accesorios.ts) y
-    // PersonajeController, con los puntos que hacen falta para tenerlos
-    // TODOS desbloqueados (el del collar, que es el mas caro) y para tener
-    // 8 de los 9 (el de la corona de flores, el segundo mas caro).
-    private const PUNTOS_TODOS_LOS_ACCESORIOS = 1000;
+    // Los mismos ids de accesorios que usa el frontend (accesorios.ts) y
+    // PersonajeController (9 "de siempre" + 13 insignias nuevas = 22 en
+    // total), con los puntos que hacen falta para tenerlos TODOS
+    // desbloqueados (la insignia "Pequeñas acciones", que es la mas cara)
+    // y para tener 21 de los 22 (la insignia "Fuerza en la diversidad",
+    // la segunda mas cara). Si agregan o quitan accesorios hay que
+    // actualizar estos dos numeros.
+    private const PUNTOS_TODOS_LOS_ACCESORIOS = 2700;
 
-    private const PUNTOS_CASI_TODOS_LOS_ACCESORIOS = 800;
+    private const PUNTOS_CASI_TODOS_LOS_ACCESORIOS = 2500;
 
     // Los ids de los retos "normales" de RetoController::RETOS, SIN los dos
     // retos especiales por tiempo limitado (especial_explorador_veloz y
@@ -106,7 +109,7 @@ class LogroController extends Controller
                 'criterio' => fn (array $r) => $r['racha_dias'] >= 7],
             ['id' => 'racha_30dias', 'titulo' => 'El Vuelo del Condor', 'descripcion' => 'Juega 30 dias seguidos.', 'icono' => '🦅',
                 'criterio' => fn (array $r) => $r['racha_dias'] >= 30],
-            ['id' => 'camaleon_maestro', 'titulo' => 'Camaleon Maestro', 'descripcion' => 'Desbloquea 8 de los 9 accesorios disponibles.', 'icono' => '🦎',
+            ['id' => 'camaleon_maestro', 'titulo' => 'Camaleon Maestro', 'descripcion' => 'Desbloquea 21 de los 22 accesorios disponibles.', 'icono' => '🦎',
                 'criterio' => fn (array $r) => $r['puntos'] >= self::PUNTOS_CASI_TODOS_LOS_ACCESORIOS],
             ['id' => 'guardian_nocturno', 'titulo' => 'El Guardian Nocturno', 'descripcion' => 'Completa un reto o mejora un minijuego entre medianoche y las 4 de la manana.', 'icono' => '🌙',
                 'criterio' => fn (array $r) => $r['jugo_madrugada']],

@@ -71,7 +71,7 @@
                   @if (imagenFallo(accesorio.id)) {
                     <span class="accesorio-centro__emoji">{{ accesorio.emoji }}</span>
                   } @else {
-                    <img class="accesorio-centro__img" [src]="accesorio.imagen" alt="" (error)="marcarImagenFallida(accesorio.id)" />
+                    <img class="accesorio-centro__img" [src]="accesorio.imagenCentro || accesorio.imagen" alt="" (error)="marcarImagenFallida(accesorio.id)" />
                   }
                 </span>
               }

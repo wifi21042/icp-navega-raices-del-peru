@@ -6,6 +6,11 @@ interface OpcionAccesorio {
   id: string;
   emoji: string;
   imagen: string;
+  // Solo las insignias nuevas (ver categoria "Insignias" mas abajo) usan
+  // esto: la version CON fondo (la ilustracion completa) para mostrar
+  // grande en el centro de la vista previa. Si no esta, se usa "imagen"
+  // (que para los accesorios de siempre es la unica foto que hay).
+  imagenCentro?: string;
   etiqueta: string;
   umbral: number;
 }
@@ -122,6 +127,32 @@ export class AccesoriosPagina {
         { id: 'maraca', emoji: '🪇', imagen: 'img/accesorios/maraca.png', etiqueta: 'Maraca', umbral: 150 },
         { id: 'zampona', emoji: '🎶', imagen: 'img/accesorios/zampona.png', etiqueta: 'Zampoña', umbral: 50 },
         { id: 'quena', emoji: '🪈', imagen: 'img/accesorios/quena.png', etiqueta: 'Quena', umbral: 0 },
+      ],
+    },
+    // Insignias nuevas (las imagenes "Gemini_Generated_Image_..." que se
+    // agregaron a public/img/accesorios/): cada una tiene dos archivos,
+    // uno "-removebg-preview.png" (sin fondo, se usa aca en el boton para
+    // que quede igual que los demas) y uno ".jpeg" (con fondo/ilustracion
+    // completa, se usa en imagenCentro para la vista previa grande).
+    // Puntos puestos a ojo, mas altos que los accesorios de siempre para
+    // que sean metas a mas largo plazo -- avisale a Alex si los quiere
+    // distintos.
+    {
+      titulo: 'Insignias',
+      opciones: [
+        { id: 'insignia_mundo_cultura', emoji: '🌎', imagen: 'img/accesorios/Gemini_Generated_Image_4lwh8e4lwh8e4lwh-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_4lwh8e4lwh8e4lwh.jpeg', etiqueta: 'Más cultura', umbral: 300 },
+        { id: 'insignia_diferencias', emoji: '🦙', imagen: 'img/accesorios/Gemini_Generated_Image_4tzhcf4tzhcf4tzh-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_4tzhcf4tzhcf4tzh.jpeg', etiqueta: 'Nuestras diferencias', umbral: 500 },
+        { id: 'insignia_identidad', emoji: '🐆', imagen: 'img/accesorios/Gemini_Generated_Image_5nlcoz5nlcoz5nlc-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_5nlcoz5nlcoz5nlc.jpeg', etiqueta: 'Cultura y identidad', umbral: 700 },
+        { id: 'zampona_festiva', emoji: '🎶', imagen: 'img/accesorios/Gemini_Generated_Image_9o1nlk9o1nlk9o1n-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_9o1nlk9o1nlk9o1n.jpeg', etiqueta: 'Zampoña festiva', umbral: 900 },
+        { id: 'insignia_inclusion', emoji: '🥇', imagen: 'img/accesorios/Gemini_Generated_Image_ju8riaju8riaju8r-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_ju8riaju8riaju8r.jpeg', etiqueta: 'Mundo inclusivo', umbral: 1100 },
+        { id: 'insignia_libros', emoji: '📚', imagen: 'img/accesorios/Gemini_Generated_Image_t2zkr3t2zkr3t2zk-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_t2zkr3t2zkr3t2zk.jpeg', etiqueta: 'Historias del mundo', umbral: 1300 },
+        { id: 'sombrero_flores', emoji: '🌻', imagen: 'img/accesorios/Gemini_Generated_Image_u5vq1gu5vq1gu5vq-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_u5vq1gu5vq1gu5vq.jpeg', etiqueta: 'Sombrero de flores', umbral: 1500 },
+        { id: 'camara_viajera', emoji: '📸', imagen: 'img/accesorios/Gemini_Generated_Image_vqt65lvqt65lvqt6-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_vqt65lvqt65lvqt6.jpeg', etiqueta: 'Cámara viajera', umbral: 1700 },
+        { id: 'insignia_condor', emoji: '🦅', imagen: 'img/accesorios/Gemini_Generated_Image_vx4taxvx4taxvx4t-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_vx4taxvx4taxvx4t.jpeg', etiqueta: 'Cóndor inclusivo', umbral: 1900 },
+        { id: 'insignia_brujula', emoji: '🧭', imagen: 'img/accesorios/Gemini_Generated_Image_xvusq4xvusq4xvus-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_xvusq4xvusq4xvus.jpeg', etiqueta: 'Brújula viajera', umbral: 2100 },
+        { id: 'insignia_delfin', emoji: '🐬', imagen: 'img/accesorios/Gemini_Generated_Image_yivosvyivosvyivo-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_yivosvyivosvyivo.jpeg', etiqueta: 'Cuidar la diversidad', umbral: 2300 },
+        { id: 'insignia_manos', emoji: '🤝', imagen: 'img/accesorios/Gemini_Generated_Image_gm7nk4gm7nk4gm7n-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_gm7nk4gm7nk4gm7n.jpeg', etiqueta: 'Fuerza en la diversidad', umbral: 2500 },
+        { id: 'insignia_tortuga', emoji: '🐢', imagen: 'img/accesorios/Gemini_Generated_Image_eb3yiqeb3yiqeb3y-removebg-preview.png', imagenCentro: 'img/accesorios/Gemini_Generated_Image_eb3yiqeb3yiqeb3y.jpeg', etiqueta: 'Pequeñas acciones', umbral: 2700 },
       ],
     },
   ];

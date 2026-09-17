@@ -26,6 +26,23 @@ class PersonajeController extends Controller
         'ceramica' => 600,
         'corona_flores' => 800,
         'collar' => 1000,
+        // Insignias nuevas (categoria "Insignias" en accesorios.ts). Los
+        // umbrales tienen que ser identicos a los del frontend o el
+        // usuario ve el accesorio "desbloqueado" ahi pero el backend lo
+        // rechaza al guardar.
+        'insignia_mundo_cultura' => 300,
+        'insignia_diferencias' => 500,
+        'insignia_identidad' => 700,
+        'zampona_festiva' => 900,
+        'insignia_inclusion' => 1100,
+        'insignia_libros' => 1300,
+        'sombrero_flores' => 1500,
+        'camara_viajera' => 1700,
+        'insignia_condor' => 1900,
+        'insignia_brujula' => 2100,
+        'insignia_delfin' => 2300,
+        'insignia_manos' => 2500,
+        'insignia_tortuga' => 2700,
     ];
 
     // Guardar/actualizar la personalizacion del personaje del usuario logueado
