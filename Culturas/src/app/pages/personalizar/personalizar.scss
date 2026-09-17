@@ -338,8 +338,14 @@
 
 .circulo-piel {
   width: 100%;
-  max-width: 540px;
-  aspect-ratio: 1 / 1;
+  max-width: 420px;
+  // Las fotos del personaje son mas altas que anchas (una persona parada
+  // no es cuadrada), asi que un marco cuadrado siempre dejaba franjas
+  // vacias grandes a los costados aunque el personaje llenara el alto.
+  // Con este aspect-ratio (calculado del recorte real de las fotos) el
+  // marco tiene la misma forma que el personaje y lo llena casi entero,
+  // solo con un margen chiquito parejo alrededor.
+  aspect-ratio: 0.543;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -370,7 +376,11 @@
   position: absolute;
   left: 50%;
   top: 33%;
-  width: 42%;
+  // El ancho crecio junto con el marco (ver .circulo-piel): el personaje
+  // ahora se ve mas "ancho" en proporcion al marco, asi que el poncho
+  // tiene que crecer igual para seguir quedando bien puesto en los
+  // hombros en vez de verse chico.
+  width: 77%;
   height: 26%;
   transform: translateX(-50%);
   clip-path: polygon(32% 0%, 68% 0%, 100% 100%, 0% 100%);
