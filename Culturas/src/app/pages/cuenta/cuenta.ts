@@ -45,7 +45,7 @@ export class Cuenta implements AfterViewInit {
       return null;
     }
     const tono = (this.auth.usuarioActual()?.tono_piel || '#f5d3a8').replace('#', '');
-    return `/img/personaje/avatares/${familia}-${tono}.png`;
+    return `img/personaje/avatares/${familia}-${tono}.png`;
   }
 
   // Clave unica por avatar + tono, para que el respaldo a emoji sea por

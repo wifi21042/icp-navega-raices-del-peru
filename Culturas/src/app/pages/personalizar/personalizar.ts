@@ -45,10 +45,10 @@ export class Personalizar {
   ];
 
   peinados: OpcionPeinado[] = [
-    { id: 'trenzas', icono: '🎀', imagen: '/img/personaje/peinados/trenzas.png' },
-    { id: 'corto', icono: '✂️', imagen: '/img/personaje/peinados/corto.png' },
-    { id: 'rizado', icono: '🌀', imagen: '/img/personaje/peinados/rizado.png' },
-    { id: 'suelto', icono: '💫', imagen: '/img/personaje/peinados/suelto.png' },
+    { id: 'trenzas', icono: '🎀', imagen: 'img/personaje/peinados/trenzas.png' },
+    { id: 'corto', icono: '✂️', imagen: 'img/personaje/peinados/corto.png' },
+    { id: 'rizado', icono: '🌀', imagen: 'img/personaje/peinados/rizado.png' },
+    { id: 'suelto', icono: '💫', imagen: 'img/personaje/peinados/suelto.png' },
   ];
 
   // Se sacaron "#7a4a2b" (Marron oscuro) y "#4a2c1a" (Marron muy oscuro/
@@ -127,7 +127,7 @@ export class Personalizar {
   // /img/personaje/avatares/nina-f5d3a8.png
   imagenParaAvatar(avatar: OpcionAvatar): string {
     const tono = this.tonoSeleccionado().replace('#', '');
-    return `/img/personaje/avatares/${avatar.familia}-${tono}.png`;
+    return `img/personaje/avatares/${avatar.familia}-${tono}.png`;
   }
 
   get imagenAvatarActual(): string {

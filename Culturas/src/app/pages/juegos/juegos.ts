@@ -9,10 +9,10 @@ interface JuegoConImagen extends MinijuegoResumen {
 }
 
 const IMAGENES_JUEGO: Record<string, string> = {
-  'aventura-andina': '/img/aventura-andina-personaje.jpg',
-  'sabores-peru': '/img/costa.jpeg',
-  'tesoros-amazonicos': '/img/selva.jpeg',
-  'ritmos-danzas': '/img/danza.jpeg',
+  'aventura-andina': 'img/aventura-andina-personaje.jpg',
+  'sabores-peru': 'img/costa.jpeg',
+  'tesoros-amazonicos': 'img/selva.jpeg',
+  'ritmos-danzas': 'img/danza.jpeg',
 };
 
 // Mismo catalogo fijo que se usa en el inicio para quien no tiene sesion
@@ -59,7 +59,7 @@ export class JuegosPagina {
           this.juegos.set(
             respuesta.minijuegos.map((juego) => ({
               ...juego,
-              imagen: IMAGENES_JUEGO[juego.id] ?? '/img/raices-del-peru.jpeg',
+              imagen: IMAGENES_JUEGO[juego.id] ?? 'img/raices-del-peru.jpeg',
             }))
           );
         },

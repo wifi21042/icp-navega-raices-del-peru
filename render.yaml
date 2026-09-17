@@ -30,3 +30,29 @@ services:
         value: stderr
       - key: GOOGLE_CLIENT_ID
         sync: false
+      # Direccion del frontend ya publicado en GitHub Pages. Se usa para
+      # armar el link que llega en el correo de "confirma tu cuenta".
+      - key: FRONTEND_URL
+        value: https://wifi21042.github.io/icp-navega-raices-del-peru
+      # Sin esto, Laravel usa el mailer "log" por defecto: el correo no
+      # falla, pero tampoco se envia de verdad, solo queda escrito en un
+      # archivo de log que nadie ve. Con esto se manda de verdad por Gmail.
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: "587"
+      - key: MAIL_ENCRYPTION
+        value: tls
+      - key: MAIL_FROM_NAME
+        value: "ICP - Navega por las Raices del Peru"
+      # Estos dos son datos sensibles (tu correo de Gmail y una "contrasena
+      # de aplicacion" de Gmail, no tu contrasena normal), asi que Render te
+      # va a pedir que los escribas a mano al desplegar, no quedan en GitHub.
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_FROM_ADDRESS
+        sync: false

@@ -103,25 +103,25 @@ export class AccesoriosPagina {
       titulo: 'Objetos especiales',
       especial: true,
       opciones: [
-        { id: 'collar', emoji: '📿', imagen: '/img/accesorios/collar.png', etiqueta: 'Collar', umbral: 1000 },
-        { id: 'corona_flores', emoji: '💐', imagen: '/img/accesorios/corona-flores.png', etiqueta: 'Corona de flores', umbral: 800 },
-        { id: 'ceramica', emoji: '🏺', imagen: '/img/accesorios/ceramica.png', etiqueta: 'Cerámica', umbral: 600 },
+        { id: 'collar', emoji: '📿', imagen: 'img/accesorios/collar.png', etiqueta: 'Collar', umbral: 1000 },
+        { id: 'corona_flores', emoji: '💐', imagen: 'img/accesorios/corona-flores.png', etiqueta: 'Corona de flores', umbral: 800 },
+        { id: 'ceramica', emoji: '🏺', imagen: 'img/accesorios/ceramica.png', etiqueta: 'Cerámica', umbral: 600 },
       ],
     },
     {
       titulo: 'Animales',
       opciones: [
-        { id: 'alpaca', emoji: '🐑', imagen: '/img/accesorios/alpaca.png', etiqueta: 'Alpaca', umbral: 450 },
-        { id: 'llama', emoji: '🦙', imagen: '/img/accesorios/llama.png', etiqueta: 'Llama', umbral: 350 },
-        { id: 'loro', emoji: '🦜', imagen: '/img/accesorios/loro.png', etiqueta: 'Loro', umbral: 250 },
+        { id: 'alpaca', emoji: '🐑', imagen: 'img/accesorios/alpaca.png', etiqueta: 'Alpaca', umbral: 450 },
+        { id: 'llama', emoji: '🦙', imagen: 'img/accesorios/llama.png', etiqueta: 'Llama', umbral: 350 },
+        { id: 'loro', emoji: '🦜', imagen: 'img/accesorios/loro.png', etiqueta: 'Loro', umbral: 250 },
       ],
     },
     {
       titulo: 'Instrumentos',
       opciones: [
-        { id: 'maraca', emoji: '🪇', imagen: '/img/accesorios/maraca.png', etiqueta: 'Maraca', umbral: 150 },
-        { id: 'zampona', emoji: '🎶', imagen: '/img/accesorios/zampona.png', etiqueta: 'Zampoña', umbral: 50 },
-        { id: 'quena', emoji: '🪈', imagen: '/img/accesorios/quena.png', etiqueta: 'Quena', umbral: 0 },
+        { id: 'maraca', emoji: '🪇', imagen: 'img/accesorios/maraca.png', etiqueta: 'Maraca', umbral: 150 },
+        { id: 'zampona', emoji: '🎶', imagen: 'img/accesorios/zampona.png', etiqueta: 'Zampoña', umbral: 50 },
+        { id: 'quena', emoji: '🪈', imagen: 'img/accesorios/quena.png', etiqueta: 'Quena', umbral: 0 },
       ],
     },
   ];
@@ -164,7 +164,7 @@ export class AccesoriosPagina {
       return null;
     }
     const tono = this.tonoPiel.replace('#', '');
-    return `/img/personaje/avatares/${familia}-${tono}.png`;
+    return `img/personaje/avatares/${familia}-${tono}.png`;
   }
 
   // Clave unica por avatar + tono, para que el respaldo a emoji sea por

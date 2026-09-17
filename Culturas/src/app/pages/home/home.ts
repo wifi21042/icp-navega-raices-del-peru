@@ -16,10 +16,10 @@ interface Juego extends MinijuegoResumen {
 // Las imagenes se quedan aca (el servidor solo manda el id/titulo/puntos/
 // nivel_requerido/bloqueado de cada minijuego).
 const IMAGENES_JUEGO: Record<string, string> = {
-  'aventura-andina': '/img/aventura-andina-personaje.jpg',
-  'sabores-peru': '/img/costa.jpeg',
-  'tesoros-amazonicos': '/img/selva.jpeg',
-  'ritmos-danzas': '/img/danza.jpeg',
+  'aventura-andina': 'img/aventura-andina-personaje.jpg',
+  'sabores-peru': 'img/costa.jpeg',
+  'tesoros-amazonicos': 'img/selva.jpeg',
+  'ritmos-danzas': 'img/danza.jpeg',
 };
 
 // Para quien todavia no tiene cuenta: el servidor no deja pedir la lista
@@ -117,7 +117,7 @@ export class Home {
         this.juegos.set(
           respuesta.minijuegos.map((juego) => ({
             ...juego,
-            imagen: IMAGENES_JUEGO[juego.id] ?? '/img/raices-del-peru.jpeg',
+            imagen: IMAGENES_JUEGO[juego.id] ?? 'img/raices-del-peru.jpeg',
           }))
         );
       },
@@ -194,7 +194,7 @@ export class Home {
     if (!familia || !tonoPiel) {
       return null;
     }
-    return `/img/personaje/avatares/${familia}-${tonoPiel.replace('#', '')}.png`;
+    return `img/personaje/avatares/${familia}-${tonoPiel.replace('#', '')}.png`;
   }
 
   marcarImagenFallida(clave: string) {
@@ -244,9 +244,9 @@ export class Home {
 
   // Imagenes reales del proyecto, guardadas en public/img/
   // (todo lo que este en la carpeta "public" se sirve desde la raiz, por eso
-  // se referencia como '/img/archivo.jpeg', sin escribir "public").
-  escudo = '/img/escudo.jpg';
-  imagenHero = '/img/raices-del-peru.jpeg';
+  // se referencia como 'img/archivo.jpeg', sin escribir "public").
+  escudo = 'img/escudo.jpg';
+  imagenHero = 'img/raices-del-peru.jpeg';
 
   // Se llena al cargar la pagina, pidiendo la lista real al servidor (con
   // el nivel requerido y si esta bloqueado o no para el usuario actual).

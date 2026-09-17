@@ -6,10 +6,10 @@ import { calcularNivel } from '../../core/utils/niveles';
 // Mismas imagenes que ya se usan en el inicio para cada juego, para que la
 // pantalla del minijuego se sienta parte de la misma tarjeta que se toco.
 const IMAGENES_FONDO: Record<string, string> = {
-  'aventura-andina': '/img/aventura-andina-personaje.jpg',
-  'sabores-peru': '/img/costa.jpeg',
-  'tesoros-amazonicos': '/img/selva.jpeg',
-  'ritmos-danzas': '/img/danza.jpeg',
+  'aventura-andina': 'img/aventura-andina-personaje.jpg',
+  'sabores-peru': 'img/costa.jpeg',
+  'tesoros-amazonicos': 'img/selva.jpeg',
+  'ritmos-danzas': 'img/danza.jpeg',
 };
 
 const LETRAS = ['A', 'B', 'C', 'D'];
@@ -155,7 +155,7 @@ export class MinijuegoPagina {
   }
 
   get imagenFondo(): string {
-    return IMAGENES_FONDO[this.id] ?? '/img/raices-del-peru.jpeg';
+    return IMAGENES_FONDO[this.id] ?? 'img/raices-del-peru.jpeg';
   }
 
   get emojiUsuario(): string {
