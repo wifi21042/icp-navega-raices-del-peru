@@ -270,8 +270,9 @@
 
 .circulo-piel {
   position: relative;
-  width: 540px;
-  height: 540px;
+  width: 100%;
+  max-width: 540px;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
