@@ -160,8 +160,10 @@
 }
 
 .accesorio-card__img {
-  width: 150px;
-  height: 150px;
+  // Tambien achicada (antes 150px) para que combine con el resto, que ya
+  // no se vea tan grande comparado con la vista previa.
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   display: block;
 }
