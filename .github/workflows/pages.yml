@@ -41,6 +41,14 @@ jobs:
         run: |
           OUT=Culturas/dist/Culturas/browser
           touch "$OUT/.nojekyll"
+          # El build con SSR configurado genera index.csr.html (la version
+          # solo-cliente) en vez de index.html. GitHub Pages es hosting
+          # estatico puro, asi que usamos esa como pagina principal, y una
+          # copia como 404.html para que las rutas de Angular (ej. /retos)
+          # funcionen al entrar directo por la URL.
+          if [ -f "$OUT/index.csr.html" ]; then
+            cp "$OUT/index.csr.html" "$OUT/index.html"
+          fi
           cp "$OUT/index.html" "$OUT/404.html"
 
       - uses: actions/upload-pages-artifact@v3
