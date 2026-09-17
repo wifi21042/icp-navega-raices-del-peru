@@ -244,12 +244,21 @@
 }
 
 /* ---------- Vista previa ---------- */
+// "Sticky": con las 22 accesorios de ahora, la lista de la izquierda es
+// bastante larga, asi que sin esto la vista previa se queda atras al
+// hacer scroll hacia abajo y solo se ve completa si te alejas mucho el
+// zoom. Con position: sticky se queda a la vista mientras se hace
+// scroll por la lista (se desactiva en el celular mas abajo, donde el
+// orden ya cambia y la vista previa aparece primero).
 .accesorios-vista-previa {
   flex: 1 1 340px;
   min-width: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  align-self: flex-start;
+  position: sticky;
+  top: 20px;
 }
 
 .tarjeta-preview {
@@ -338,6 +347,10 @@
 @media (max-width: 620px) {
   .accesorios-grid {
     flex-direction: column-reverse;
+  }
+
+  .accesorios-vista-previa {
+    position: static;
   }
 
   .categoria__grid {
