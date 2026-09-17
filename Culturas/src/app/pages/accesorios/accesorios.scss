@@ -89,9 +89,10 @@
   // crecer segun el contenido (todos los botones de accesorios). El
   // cuadro que Alex pidio a 100x50px es .accesorios-centro (el gris,
   // adentro de la tarjeta verde), no esta.
+  // Achicada un poco mas (900 -> 800px) a pedido de Alex.
   display: flex;
   gap: 20px;
-  max-width: 900px;
+  max-width: 800px;
   width: 100%;
   background: #fdf6e3;
   border-radius: 20px;
@@ -149,11 +150,14 @@
 }
 
 .categoria__grid {
-  // 5 por fila en vez de 3, a pedido de Alex (asi el panel izquierdo
-  // queda mas corto/parejo con la tarjeta verde de al lado).
+  // auto-fit en vez de un numero fijo de columnas: asi las categorias
+  // con pocos accesorios (3, como Animales) no dejan un hueco vacio a
+  // la derecha (las columnas sin usar se "colapsan" en vez de quedar
+  // reservadas y en blanco), y las que tienen muchos (Insignias) usan
+  // todas las columnas que entren.
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
+  gap: 12px;
 }
 
 .accesorio-card {
