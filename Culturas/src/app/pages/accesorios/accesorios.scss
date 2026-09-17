@@ -239,7 +239,7 @@
 
 /* ---------- Vista previa ---------- */
 .accesorios-vista-previa {
-  flex: 1 1 200px;
+  flex: 1 1 340px;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -275,13 +275,18 @@
 .accesorios-centro {
   width: 100%;
   min-height: 280px;
+  // Cuando hay hartos accesorios elegidos, en vez de estirar la tarjeta
+  // entera hacia abajo (se veia horrible, todo en una sola columna), la
+  // caja se queda de un alto fijo y hace scroll para adentro.
+  max-height: 460px;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
+  align-content: flex-start;
   justify-content: center;
-  align-items: center;
-  gap: 22px;
-  padding: 20px 10px;
+  gap: 16px;
+  padding: 16px 8px;
 }
 
 .accesorios-centro__vacio {
@@ -292,9 +297,10 @@
 }
 
 .accesorio-centro {
-  width: 150px;
-  height: 150px;
-  border-radius: 20px;
+  width: 120px;
+  height: 120px;
+  flex: 0 0 auto;
+  border-radius: 16px;
   background: #fff;
   display: flex;
   align-items: center;
@@ -304,8 +310,8 @@
 }
 
 .accesorio-centro__img {
-  width: 94%;
-  height: 94%;
+  width: 92%;
+  height: 92%;
   object-fit: contain;
   display: block;
 }
