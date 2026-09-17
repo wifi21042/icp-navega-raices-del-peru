@@ -251,7 +251,7 @@
 // scroll por la lista (se desactiva en el celular mas abajo, donde el
 // orden ya cambia y la vista previa aparece primero).
 .accesorios-vista-previa {
-  flex: 1 1 320px;
+  flex: 1 1 260px;
   min-width: 0;
   display: flex;
   align-items: flex-start;
@@ -289,19 +289,19 @@
 // (.nombre-preview), como antes.
 .accesorios-centro {
   width: 100%;
-  min-height: 200px;
+  min-height: 120px;
   // Cuando hay hartos accesorios elegidos, en vez de estirar la tarjeta
   // entera hacia abajo (se veia horrible, todo en una sola columna), la
   // caja se queda de un alto fijo y hace scroll para adentro.
-  max-height: 420px;
+  max-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: center;
-  gap: 12px;
-  padding: 16px 8px;
+  gap: 8px;
+  padding: 12px 8px;
 }
 
 .accesorios-centro__vacio {
@@ -312,11 +312,11 @@
 }
 
 .accesorio-centro {
-  // 100px a pedido de Alex: 170px no cabia bien en la pantalla.
-  width: 100px;
-  height: 100px;
+  // 50px a pedido de Alex (100px seguia viendose grande).
+  width: 50px;
+  height: 50px;
   flex: 0 0 auto;
-  border-radius: 14px;
+  border-radius: 10px;
   background: #fff;
   display: flex;
   align-items: center;
