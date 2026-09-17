@@ -350,83 +350,61 @@
   box-shadow: 0 3px 8px rgba(244, 185, 66, 0.45);
 }
 
-// Vuelve el personaje a la vista previa (a pedido de Alex): la ropa y
-// los animales se dibujan encima del cuerpo, en el lugar que les toca
-// (ver POSICION_SOBRE_PERSONAJE en accesorios.ts). Las insignias nuevas
-// no tienen una posicion natural sobre el cuerpo (son medallas, no
-// ropa), asi que se quedan en la fila de circulos de abajo
-// (.fila-accesorios-preview), junto con los instrumentos y la ceramica.
-.circulo-piel {
-  // Achicado a pedido de Alex (antes max-width:420px).
-  position: relative;
-  width: 100%;
-  max-width: 260px;
-  aspect-ratio: 0.543;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.emoji-avatar {
-  font-size: 4.8rem;
-}
-
-.imagen-avatar {
-  position: relative;
-  z-index: 1;
-  width: 92%;
-  height: 92%;
-  object-fit: contain;
-  display: block;
-}
-
-.accesorio-sobre-personaje {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  height: auto;
-  object-fit: contain;
-  pointer-events: none;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-.etiqueta-ropa {
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 999px;
-}
-
+// Sin personaje otra vez (a pedido de Alex): en vez de ponerle la ropa
+// encima al cuerpo, se muestran los accesorios elegidos como iconos
+// grandes y transparentes (sin fondo/sin circulo blanco detras) en el
+// centro de la tarjeta, con una sombra suave para que no se vean
+// "pegados" al fondo verde.
 .accesorios-panel h1 {
   text-shadow: 0 2px 0 rgba(255, 255, 255, 0.6);
 }
 
-.fila-accesorios-preview {
+.accesorios-centro {
+  width: 100%;
+  min-height: 160px;
   display: flex;
   flex-wrap: wrap;
+  align-content: center;
   justify-content: center;
-  gap: 8px;
+  gap: 16px;
+  padding: 8px 4px;
 }
 
-.accesorio-preview {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #fff;
+.accesorios-centro__vacio {
+  color: #4d6b52;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.accesorio-centro {
+  width: 78px;
+  height: 78px;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  border: 2px solid #f4b942;
-  overflow: hidden;
+  transition: transform 0.15s ease;
 }
 
-.accesorio-preview__img {
-  width: 78%;
-  height: 78%;
+.accesorio-centro:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.accesorio-centro__img {
+  // Sin fondo (la version "-removebg" de cada accesorio), con una
+  // sombra suave en vez de un circulo blanco detras, para que se vea
+  // como si flotara sobre la tarjeta verde en vez de "pegado".
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 4px 8px rgba(26, 77, 46, 0.35));
+}
+
+.accesorio-centro__emoji {
+  font-size: 2.6rem;
+  filter: drop-shadow(0 3px 5px rgba(26, 77, 46, 0.3));
 }
 
 .nombre-preview {
