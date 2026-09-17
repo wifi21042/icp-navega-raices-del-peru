@@ -87,6 +87,23 @@
               [style.background]="ropa.color"
               [attr.aria-label]="ropa.etiqueta"
               [title]="ropa.etiqueta"
+              (click)="seleccionarRopa(ropa.id)"
+            ></button>
+          }
+        </div>
+      </section>
+
+      <section class="seccion">
+        <h2>Fondos</h2>
+        <div class="fila-opciones">
+          @for (fondo of fondos; track fondo.id) {
+            <button
+              class="opcion-fondo"
+              [class.seleccionado]="fondo.id === fondoSeleccionado()"
+              [style.backgroundImage]="'url(' + fondo.imagen + ')'"
+              [attr.aria-label]="fondo.etiqueta"
+              [title]="fondo.etiqueta"
+              (click)="seleccionarFondo(fondo.id)"
             ></button>
           }
         </div>
@@ -112,7 +129,7 @@
 
     <div class="personalizar-vista-previa">
       <div class="tarjeta-preview" [style.borderColor]="ropaActual.color">
-        <div class="circulo-piel">
+        <div class="circulo-piel" [style.backgroundImage]="'url(' + fondoActual.imagen + ')'">
           @if (imagenFallo(claveImagenAvatar(avatarActual))) {
             <span class="emoji-avatar">{{ avatarActual.emoji }}</span>
           } @else {

@@ -22,6 +22,12 @@ interface OpcionRopa {
   etiqueta: string;
 }
 
+interface OpcionFondo {
+  id: string;
+  imagen: string;
+  etiqueta: string;
+}
+
 @Component({
   imports: [RouterLink],
   selector: 'app-personalizar',
@@ -62,6 +68,15 @@ export class Personalizar {
     { id: 'poncho_negro', color: '#2b2b2b', etiqueta: 'Poncho negro' },
   ];
 
+  // Fondo detras del personaje en la vista previa (solo visual, no se
+  // guarda en el servidor por ahora).
+  fondos: OpcionFondo[] = [
+    { id: 'costa', imagen: 'img/fondo-costa.jpeg', etiqueta: 'Costa' },
+    { id: 'sierra', imagen: 'img/fondo-sierra.jpeg', etiqueta: 'Sierra' },
+    { id: 'sierra2', imagen: 'img/fondo-sierra-2.jpeg', etiqueta: 'Sierra 2' },
+    { id: 'selva', imagen: 'img/selva.jpeg', etiqueta: 'Selva' },
+  ];
+
   // Guarda que imagenes ya intentamos cargar y fallaron (todavia no existe
   // el archivo), para mostrar el emoji de respaldo en esos casos nada mas.
   // La clave incluye el tono de piel (ver imagenParaAvatar), asi que si
@@ -72,6 +87,7 @@ export class Personalizar {
   peinadoSeleccionado = signal(this.peinados[0].id);
   tonoSeleccionado = signal(this.tonosPiel[0]);
   ropaSeleccionada = signal(this.ropas[0].id);
+  fondoSeleccionado = signal(this.fondos[0].id);
   nombrePersonaje = signal('');
 
   guardando = signal(false);
@@ -121,6 +137,10 @@ export class Personalizar {
     return this.ropas.find((r) => r.id === this.ropaSeleccionada()) ?? this.ropas[0];
   }
 
+  get fondoActual(): OpcionFondo {
+    return this.fondos.find((f) => f.id === this.fondoSeleccionado()) ?? this.fondos[0];
+  }
+
   // Arma la ruta de la foto para un avatar segun el tono de piel elegido
   // ahora mismo. Ej: familia "nina" + tono "#f5d3a8" ->
   // /img/personaje/avatares/nina-f5d3a8.png
@@ -161,6 +181,10 @@ export class Personalizar {
 
   seleccionarRopa(id: string) {
     this.ropaSeleccionada.set(id);
+  }
+
+  seleccionarFondo(id: string) {
+    this.fondoSeleccionado.set(id);
   }
 
   marcarImagenFallida(id: string) {

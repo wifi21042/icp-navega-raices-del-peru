@@ -242,6 +242,25 @@
   border-color: #1a4d2e;
 }
 
+.opcion-fondo {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.opcion-fondo:hover {
+  transform: translateY(-2px);
+}
+
+.opcion-fondo.seleccionado {
+  border-color: #1a4d2e;
+}
+
 .error {
   color: #c0392b;
   background: #fceceb;
@@ -324,6 +343,10 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
 }
 
 .emoji-avatar {
