@@ -136,14 +136,22 @@
 }
 
 .accesorio-card {
+  // Caja fija de 100x100px (antes crecia segun el contenido: icono +
+  // etiqueta + candado). Con box-sizing:border-box el padding/borde
+  // cuentan dentro de esos 100px, no se suman.
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 2px;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
   background: #fff;
   border: 3px solid transparent;
   border-radius: 14px;
-  padding: 16px 10px;
+  padding: 6px 4px;
+  overflow: hidden;
   cursor: pointer;
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
@@ -153,26 +161,34 @@
 }
 
 .accesorio-card__icono {
-  font-size: 2.1rem;
+  font-size: 1.3rem;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .accesorio-card__img {
-  // Tambien achicada (antes 150px) para que combine con el resto, que ya
-  // no se vea tan grande comparado con la vista previa.
-  width: 100px;
-  height: 100px;
+  // Icono reducido para que quepa dentro de la caja de 100x100 junto
+  // con el texto de abajo, sin salirse ni deformarse (object-fit: contain).
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   display: block;
 }
 
 .accesorio-card__etiqueta {
-  font-size: 0.95rem;
+  font-size: 0.6rem;
+  line-height: 1.05;
   font-weight: 700;
   color: #1a4d2e;
   text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .accesorio-card--seleccionado {
@@ -187,9 +203,11 @@
 }
 
 .accesorio-card__candado {
-  font-size: 0.78rem;
+  font-size: 0.52rem;
+  line-height: 1;
   color: #8a7a5a;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .nota {
