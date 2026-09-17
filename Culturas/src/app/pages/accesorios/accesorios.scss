@@ -349,71 +349,82 @@
   box-shadow: 0 3px 8px rgba(244, 185, 66, 0.45);
 }
 
-// Ya no se dibuja a la nina/nino aqui: la tarjeta ahora solo muestra los
-// accesorios elegidos, centrados, en vez de puestos encima de un
-// personaje. Los puntos van arriba (.puntos-actuales) y el nombre abajo
-// (.nombre-preview), como antes.
-.accesorios-centro {
-  // Caja fija de 100x50px a pedido de Alex. Como ya no entran varios
-  // accesorios en fila con ese alto, se hace scroll horizontal adentro
-  // (nowrap) en vez de que se corten o se salgan del alto de 50px. La
-  // barra de scroll se esconde (se ve fea, con flechas) pero se puede
-  // seguir deslizando con el dedo/mouse.
-  width: 100px;
-  height: 50px;
-  box-sizing: border-box;
-  background: #e6e6e6;
-  border-radius: 8px;
+// Vuelve el personaje a la vista previa (a pedido de Alex): la ropa y
+// los animales se dibujan encima del cuerpo, en el lugar que les toca
+// (ver POSICION_SOBRE_PERSONAJE en accesorios.ts). Las insignias nuevas
+// no tienen una posicion natural sobre el cuerpo (son medallas, no
+// ropa), asi que se quedan en la fila de circulos de abajo
+// (.fila-accesorios-preview), junto con los instrumentos y la ceramica.
+.circulo-piel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 0.543;
   display: flex;
-  flex-wrap: nowrap;
   align-items: center;
-  justify-content: flex-start;
-  gap: 4px;
-  padding: 4px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none; // Firefox
-  -ms-overflow-style: none; // Edge/IE viejo
-
-  &::-webkit-scrollbar {
-    display: none; // Chrome, Safari, Edge nuevo
-  }
+  justify-content: center;
 }
 
-.accesorios-centro__vacio {
-  color: #8c7b60;
-  font-weight: 600;
-  font-size: 0.85rem;
-  text-align: center;
+.emoji-avatar {
+  font-size: 4.8rem;
+}
+
+.imagen-avatar {
+  position: relative;
+  z-index: 1;
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+  display: block;
+}
+
+.accesorio-sobre-personaje {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.etiqueta-ropa {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 999px;
 }
 
 .accesorios-panel h1 {
   text-shadow: 0 2px 0 rgba(255, 255, 255, 0.6);
 }
 
-.accesorio-centro {
-  width: 40px;
-  height: 40px;
-  flex: 0 0 auto;
-  border-radius: 50%; /* Hecho redondo estilo burbuja como los selectores de la segunda imagen */
+.fila-accesorios-preview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.accesorio-preview {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  font-size: 1.1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   border: 2px solid #f4b942;
   overflow: hidden;
 }
 
-.accesorio-centro__img {
-  width: 75%;
-  height: 75%;
+.accesorio-preview__img {
+  width: 78%;
+  height: 78%;
   object-fit: contain;
   display: block;
-}
-
-.accesorio-centro__emoji {
-  font-size: 1.4rem;
 }
 
 .nombre-preview {
