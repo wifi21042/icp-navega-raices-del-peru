@@ -378,8 +378,11 @@
 }
 
 .accesorio-centro {
-  width: 78px;
-  height: 78px;
+  // Mas grande (antes 78px) a pedido de Alex: con pocos elegidos se
+  // veia perdido/chico dentro de la tarjeta grande. Tamano fijo e
+  // igual para todos (no cambia segun cuantos elijas).
+  width: 130px;
+  height: 130px;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
