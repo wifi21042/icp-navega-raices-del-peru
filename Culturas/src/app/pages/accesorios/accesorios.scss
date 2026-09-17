@@ -81,13 +81,15 @@
 // propia tarjeta suelta y la vista previa quede flotando aparte sin
 // borde ni fondo que la contenga.
 .accesorios-grid {
+  // Tarjeta crema achicada (antes max-width:1180px, padding:36px) para
+  // que no ocupe tanto espacio en la pantalla.
   display: flex;
-  gap: 32px;
-  max-width: 1180px;
+  gap: 20px;
+  max-width: 900px;
   width: 100%;
   background: #fdf6e3;
   border-radius: 20px;
-  padding: 36px;
+  padding: 20px;
   box-shadow: 0 16px 40px rgba(26, 77, 46, 0.15);
   flex-wrap: wrap;
 }
