@@ -117,6 +117,11 @@
             <span class="emoji-avatar">{{ avatarActual.emoji }}</span>
           } @else {
             <img class="imagen-avatar" [src]="imagenAvatarActual" alt="" (error)="marcarImagenFallida(claveImagenAvatar(avatarActual))" />
+            <!-- No tenemos dibujos de poncho de verdad para cada color, asi
+                 que dibujamos uno simple encima del personaje con CSS (un
+                 trapecio del color elegido, sobre los hombros/pecho) en vez
+                 de solo mostrar una etiqueta de texto separada debajo. -->
+            <div class="poncho-overlay" [style.background]="ropaActual.color"></div>
           }
         </div>
         <div class="etiqueta-ropa" [style.background]="ropaActual.color">{{ ropaActual.etiqueta }}</div>

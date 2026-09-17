@@ -323,6 +323,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .emoji-avatar {
@@ -335,6 +336,24 @@
   object-fit: contain;
   border-radius: 0;
   display: block;
+}
+
+// Poncho "dibujado" con CSS (no tenemos arte de poncho de verdad todavia):
+// un trapecio del color elegido, apoyado sobre los hombros del personaje,
+// para que la ropa se vea puesta encima en vez de solo como una etiqueta
+// de texto aparte debajo.
+.poncho-overlay {
+  position: absolute;
+  left: 50%;
+  top: 33%;
+  width: 42%;
+  height: 26%;
+  transform: translateX(-50%);
+  clip-path: polygon(32% 0%, 68% 0%, 100% 100%, 0% 100%);
+  border-radius: 4px;
+  opacity: 0.9;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.55);
+  pointer-events: none;
 }
 
 .etiqueta-ropa {
