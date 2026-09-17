@@ -318,7 +318,9 @@
 .accesorios-centro {
   // Caja fija de 100x50px a pedido de Alex. Como ya no entran varios
   // accesorios en fila con ese alto, se hace scroll horizontal adentro
-  // (nowrap) en vez de que se corten o se salgan del alto de 50px.
+  // (nowrap) en vez de que se corten o se salgan del alto de 50px. La
+  // barra de scroll se esconde (se ve fea, con flechas) pero se puede
+  // seguir deslizando con el dedo/mouse.
   width: 100px;
   height: 50px;
   box-sizing: border-box;
@@ -332,6 +334,12 @@
   padding: 4px;
   overflow-x: auto;
   overflow-y: hidden;
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // Edge/IE viejo
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome, Safari, Edge nuevo
+  }
 }
 
 .accesorios-centro__vacio {
