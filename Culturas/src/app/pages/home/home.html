@@ -107,7 +107,7 @@
           <h3>{{ juego.titulo }}</h3>
           <p>{{ juego.descripcion }}</p>
           <div class="juego-card__pie">
-            <a [routerLink]="auth.estaLogueado() ? '/' : '/login'" class="btn btn--jugar" [class]="'btn--' + juego.color">Jugar</a>
+            <a [routerLink]="auth.estaLogueado() ? ['/minijuego', juego.id] : ['/login']" class="btn btn--jugar" [class]="'btn--' + juego.color">Jugar</a>
             <span class="juego-card__puntos">⭐ {{ juego.puntos }} pts</span>
           </div>
         </div>
