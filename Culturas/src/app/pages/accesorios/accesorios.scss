@@ -75,9 +75,9 @@
 .accesorios-contenido {
   // Achicado para que combine con la tarjeta de adentro, que ya bajo
   // a max-width:900px.
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px 16px 30px;
+  padding: 20px 6px 30px;
 }
 
 // Una sola tarjeta cream que envuelve las dos columnas (igual que
@@ -85,8 +85,10 @@
 // propia tarjeta suelta y la vista previa quede flotando aparte sin
 // borde ni fondo que la contenga.
 .accesorios-grid {
-  // Tarjeta crema achicada (antes max-width:1180px, padding:36px) para
-  // que no ocupe tanto espacio en la pantalla.
+  // OJO: esta tarjeta (la crema) NO debe tener alto fijo, tiene que
+  // crecer segun el contenido (todos los botones de accesorios). El
+  // cuadro que Alex pidio a 100x50px es .accesorios-centro (el gris,
+  // adentro de la tarjeta verde), no esta.
   display: flex;
   gap: 20px;
   max-width: 900px;
@@ -99,7 +101,7 @@
 }
 
 .accesorios-panel {
-  flex: 1 1 480px;
+  flex: 1 1 300px;
   min-width: 0;
 }
 
