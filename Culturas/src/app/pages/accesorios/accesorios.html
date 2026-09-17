@@ -45,6 +45,9 @@
                   @if (!estaDesbloqueado(accesorio)) {
                     <span class="accesorio-card__candado">🔒 {{ accesorio.umbral }} pts</span>
                   }
+                  @if (estaSeleccionado(accesorio.id) && estaDesbloqueado(accesorio)) {
+                    <span class="accesorio-card__check">✓</span>
+                  }
                 </button>
               }
             </div>

@@ -131,6 +131,17 @@
   text-transform: uppercase;
   text-align: center;
   margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.categoria h2::before,
+.categoria h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d9c99a, transparent);
 }
 
 .categoria__titulo--especial {
@@ -149,6 +160,7 @@
   // Ahora la caja ocupa toda su columna del grid (5 por fila en vez de
   // 3) y se mantiene cuadrada con aspect-ratio, en vez de un tamano
   // fijo en px que no entraba 5 en una fila.
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -163,11 +175,13 @@
   padding: 6px 4px;
   overflow: hidden;
   cursor: pointer;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 2px 8px rgba(26, 77, 46, 0.08);
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .accesorio-card:hover:not(.accesorio-card--bloqueado) {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 18px rgba(26, 77, 46, 0.18);
 }
 
 .accesorio-card__icono {
@@ -204,6 +218,24 @@
 .accesorio-card--seleccionado {
   border-color: #f4b942;
   background: #fff8e6;
+  box-shadow: 0 4px 14px rgba(244, 185, 66, 0.4);
+}
+
+.accesorio-card__check {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f4b942;
+  color: #1a4d2e;
+  font-size: 0.6rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .accesorio-card--bloqueado {
@@ -297,22 +329,24 @@
   width: 100%;
   max-width: 640px;
   background: linear-gradient(180deg, #dff0e0 0%, #cfe8d4 100%);
-  border-radius: 18px;
+  border-radius: 22px;
   border: 4px solid #2f6b3a;
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  box-shadow: 0 14px 30px rgba(26, 77, 46, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .puntos-actuales {
-  background: #f4b942;
+  background: linear-gradient(135deg, #ffd873, #f4b942);
   color: #1a4d2e;
   font-weight: 800;
   font-size: 0.95rem;
   padding: 6px 16px;
   border-radius: 999px;
+  box-shadow: 0 3px 8px rgba(244, 185, 66, 0.45);
 }
 
 // Ya no se dibuja a la nina/nino aqui: la tarjeta ahora solo muestra los
@@ -347,30 +381,33 @@
 }
 
 .accesorios-centro__vacio {
-  color: #6a8a70;
-  font-weight: 700;
-  font-size: 1.05rem;
+  color: #8c7b60;
+  font-weight: 600;
+  font-size: 0.85rem;
   text-align: center;
 }
 
+.accesorios-panel h1 {
+  text-shadow: 0 2px 0 rgba(255, 255, 255, 0.6);
+}
+
 .accesorio-centro {
-  // Reducido a 38px para que quepa dentro del alto de 50px de
-  // .accesorios-centro (con el padding de 4px arriba y abajo).
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   flex: 0 0 auto;
-  border-radius: 8px;
+  border-radius: 50%; /* Hecho redondo estilo burbuja como los selectores de la segunda imagen */
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  border: 2px solid #f4b942;
   overflow: hidden;
 }
 
 .accesorio-centro__img {
-  width: 92%;
-  height: 92%;
+  width: 75%;
+  height: 75%;
   object-fit: contain;
   display: block;
 }
