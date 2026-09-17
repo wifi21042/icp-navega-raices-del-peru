@@ -102,7 +102,11 @@
 }
 
 .accesorios-panel {
+  // Tope de ancho (antes no tenia) para que en pantallas muy anchas
+  // (PC grande) el panel no se estire de mas y deje un hueco raro al
+  // lado; asi se ve parecido tanto en cel como en PC.
   flex: 1 1 300px;
+  max-width: 460px;
   min-width: 0;
 }
 
@@ -154,9 +158,11 @@
   // con pocos accesorios (3, como Animales) no dejan un hueco vacio a
   // la derecha (las columnas sin usar se "colapsan" en vez de quedar
   // reservadas y en blanco), y las que tienen muchos (Insignias) usan
-  // todas las columnas que entren.
+  // todas las columnas que entren. Tope de 100px por columna (antes
+  // 1fr, sin tope) para que las tarjetas no se vean gigantes/estiradas
+  // en pantallas anchas.
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(70px, 100px));
   gap: 12px;
 }
 
