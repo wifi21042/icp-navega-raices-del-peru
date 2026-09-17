@@ -289,12 +289,11 @@ export class AccesoriosPagina {
       return;
     }
 
+    // A pedido de Alex: solo se puede tener UN accesorio elegido a la
+    // vez (antes se podian elegir varios juntos). Tocar el que ya esta
+    // elegido lo destilda; tocar otro reemplaza al anterior.
     const actuales = this.accesoriosSeleccionados();
-    this.accesoriosSeleccionados.set(
-      actuales.includes(accesorio.id)
-        ? actuales.filter((a) => a !== accesorio.id)
-        : [...actuales, accesorio.id]
-    );
+    this.accesoriosSeleccionados.set(actuales.includes(accesorio.id) ? [] : [accesorio.id]);
   }
 
   guardar() {
