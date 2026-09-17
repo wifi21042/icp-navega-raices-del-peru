@@ -59,46 +59,26 @@
       </section>
 
       <section class="accesorios-vista-previa">
-        <div class="tarjeta-preview" [style.borderColor]="colorRopa">
+        <div class="tarjeta-preview">
           <span class="puntos-actuales">⭐ {{ puntosActuales }} pts</span>
-          <div class="circulo-piel">
-            @if (!imagenAvatar || imagenFallo(claveImagenAvatar)) {
-              <span class="emoji-avatar">{{ emojiAvatar }}</span>
+
+          <div class="accesorios-centro">
+            @if (accesoriosElegidos.length === 0) {
+              <p class="accesorios-centro__vacio">Elige tus accesorios</p>
             } @else {
-              <img class="imagen-avatar" [src]="imagenAvatar" alt="" (error)="marcarImagenFallida(claveImagenAvatar)" />
-            }
-
-            @for (accesorio of accesoriosSobrePersonaje; track accesorio.id) {
-              @if (!imagenFallo(accesorio.id)) {
-                <img
-                  class="accesorio-sobre-personaje"
-                  [src]="accesorio.imagen"
-                  [alt]="accesorio.etiqueta"
-                  [style.top]="posicionTop(accesorio.id)"
-                  [style.left]="posicionLeft(accesorio.id)"
-                  [style.width]="posicionAncho(accesorio.id)"
-                  [style.zIndex]="posicionZ(accesorio.id)"
-                  (error)="marcarImagenFallida(accesorio.id)"
-                />
-              }
-            }
-          </div>
-          <div class="etiqueta-ropa" [style.background]="colorRopa">{{ etiquetaRopa }}</div>
-          <p class="nombre-preview">{{ auth.usuarioActual()?.nombre_personaje }}</p>
-
-          @if (accesoriosEnFila.length > 0) {
-            <div class="fila-accesorios-preview">
-              @for (accesorio of accesoriosEnFila; track accesorio.id) {
-                <span class="accesorio-preview" [title]="accesorio.etiqueta">
+              @for (accesorio of accesoriosElegidos; track accesorio.id) {
+                <span class="accesorio-centro" [title]="accesorio.etiqueta">
                   @if (imagenFallo(accesorio.id)) {
-                    {{ accesorio.emoji }}
+                    <span class="accesorio-centro__emoji">{{ accesorio.emoji }}</span>
                   } @else {
-                    <img class="accesorio-preview__img" [src]="accesorio.imagen" alt="" (error)="marcarImagenFallida(accesorio.id)" />
+                    <img class="accesorio-centro__img" [src]="accesorio.imagen" alt="" (error)="marcarImagenFallida(accesorio.id)" />
                   }
                 </span>
               }
-            </div>
-          }
+            }
+          </div>
+
+          <p class="nombre-preview">{{ auth.usuarioActual()?.nombre_personaje }}</p>
         </div>
       </section>
     </div>

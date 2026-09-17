@@ -268,50 +268,50 @@
   border-radius: 999px;
 }
 
-.circulo-piel {
-  position: relative;
+// Ya no se dibuja a la nina/nino aqui: la tarjeta ahora solo muestra los
+// accesorios elegidos, centrados, en vez de puestos encima de un
+// personaje. Los puntos van arriba (.puntos-actuales) y el nombre abajo
+// (.nombre-preview), como antes.
+.accesorios-centro {
   width: 100%;
-  max-width: 540px;
-  aspect-ratio: 1 / 1;
+  min-height: 280px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  padding: 20px 10px;
+}
+
+.accesorios-centro__vacio {
+  color: #6a8a70;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+.accesorio-centro {
+  width: 130px;
+  height: 130px;
+  border-radius: 20px;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
 }
 
-.emoji-avatar {
-  font-size: 4.8rem;
-}
-
-.imagen-avatar {
-  position: relative;
-  z-index: 1;
-  width: 92%;
-  height: 92%;
+.accesorio-centro__img {
+  width: 88%;
+  height: 88%;
   object-fit: contain;
-  border-radius: 0;
   display: block;
 }
 
-// Collar, corona de flores y animales, dibujados encima/al costado del
-// personaje en el lugar del cuerpo que les corresponde (ver
-// POSICION_SOBRE_PERSONAJE en accesorios.ts). "top" y "left" ya vienen
-// calculados desde el componente; aca solo se centra el accesorio en ese
-// punto y se deja que el ancho lo den object-fit + width en linea.
-.accesorio-sobre-personaje {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  height: auto;
-  object-fit: contain;
-  pointer-events: none;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-.etiqueta-ropa {
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 999px;
+.accesorio-centro__emoji {
+  font-size: 3rem;
 }
 
 .nombre-preview {
@@ -321,33 +321,6 @@
   color: #1a4d2e;
   text-align: center;
   word-break: break-word;
-}
-
-.fila-accesorios-preview {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-
-.accesorio-preview {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.15rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-}
-
-.accesorio-preview__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
 @media (max-width: 620px) {
