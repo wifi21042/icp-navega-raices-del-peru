@@ -76,19 +76,25 @@
   padding: 36px 20px 60px;
 }
 
+// Una sola tarjeta cream que envuelve las dos columnas (igual que
+// .personalizar-tarjeta en Personalizar) en vez de que el panel tenga su
+// propia tarjeta suelta y la vista previa quede flotando aparte sin
+// borde ni fondo que la contenga.
 .accesorios-grid {
   display: flex;
   gap: 32px;
-  flex-wrap: wrap;
-}
-
-.accesorios-panel {
-  flex: 1 1 520px;
-  min-width: 0;
+  max-width: 1180px;
+  width: 100%;
   background: #fdf6e3;
   border-radius: 20px;
   padding: 36px;
   box-shadow: 0 16px 40px rgba(26, 77, 46, 0.15);
+  flex-wrap: wrap;
+}
+
+.accesorios-panel {
+  flex: 1 1 480px;
+  min-width: 0;
 }
 
 .accesorios-panel h1 {
