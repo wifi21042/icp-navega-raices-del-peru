@@ -1,0 +1,91 @@
+<div class="juegos-pagina">
+  <header class="juegos-header">
+    <a routerLink="/" class="juegos-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+    <a routerLink="/" class="juegos-volver">← Volver al inicio</a>
+  </header>
+
+  <main class="juegos-contenido">
+    <section class="juegos-resumen">
+      <h1>🎮 Todos los juegos</h1>
+      <p>Elige un juego por nivel y dificultad. Los que todavia no desbloqueaste salen con candado 🔒.</p>
+    </section>
+
+    @if (auth.estaLogueado()) {
+      <section class="progreso">
+        <span class="progreso__nivel">Nivel {{ nivelActual }}</span>
+        <div class="progreso__barra">
+          <div class="progreso__barra-relleno" [style.width.%]="porcentajeProgreso"></div>
+        </div>
+        @if (esNivelMaximo) {
+          <span class="progreso__texto">¡Nivel maximo alcanzado! 🎉</span>
+        } @else {
+          <span class="progreso__texto">{{ progresoPuntos }} / {{ metaPuntos }} pts para el siguiente nivel</span>
+        }
+
+        <button class="progreso__boton-niveles" (click)="toggleNiveles()">
+          {{ mostrarNiveles() ? '▲ Ocultar tabla de niveles' : '▼ Ver los 100 niveles' }}
+        </button>
+
+        @if (mostrarNiveles()) {
+          <div class="tabla-niveles">
+            @for (fila of niveles; track fila.nivel) {
+              <div class="tabla-niveles__fila" [class.tabla-niveles__fila--actual]="fila.nivel === nivelActual">
+                <span class="tabla-niveles__nivel">Nivel {{ fila.nivel }}</span>
+                <span class="tabla-niveles__puntos">{{ fila.puntosRequeridos | number }} pts</span>
+                @if (fila.nivel === nivelActual) {
+                  <span class="tabla-niveles__aqui">📍 Estas aqui</span>
+                }
+              </div>
+            }
+          </div>
+        }
+      </section>
+    }
+
+    @if (cargando()) {
+      <p class="juegos-cargando">Cargando juegos...</p>
+    } @else {
+      @for (dificultad of ['facil', 'medio', 'dificil']; track dificultad) {
+        @if (juegosPorDificultad(dificultad).length > 0) {
+          <section class="juegos-grupo">
+            <h2 class="juegos-grupo__titulo">{{ etiquetaDificultad(dificultad) }}</h2>
+
+            <div class="juegos-grid">
+              @for (juego of juegosPorDificultad(dificultad); track juego.id) {
+                <article class="juego-card" [class.juego-card--bloqueado]="juego.bloqueado">
+                  <div class="juego-card__imagen-envoltorio">
+                    <img [src]="juego.imagen" [alt]="juego.titulo" />
+                    @if (juego.bloqueado) {
+                      <div class="juego-card__candado">
+                        <span>🔒</span>
+                        <span>Nivel {{ juego.nivel_requerido }}</span>
+                      </div>
+                    }
+                  </div>
+                  <div class="juego-card__cuerpo">
+                    <h3>{{ juego.titulo }}</h3>
+                    <p>{{ juego.descripcion }}</p>
+                    <div class="juego-card__pie">
+                      @if (juego.bloqueado) {
+                        <span class="btn btn--jugar btn--bloqueado">🔒 Nivel {{ juego.nivel_requerido }}</span>
+                      } @else {
+                        <a [routerLink]="auth.estaLogueado() ? ['/minijuego', juego.id] : ['/login']" class="btn btn--jugar" [class]="'btn--' + juego.color">Jugar</a>
+                      }
+                      <span class="juego-card__puntos">⭐ {{ juego.puntos }} pts</span>
+                    </div>
+                  </div>
+                </article>
+              }
+            </div>
+          </section>
+        }
+      }
+    }
+  </main>
+</div>

@@ -1,0 +1,93 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.verificar-pagina {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(180deg, #eaf4ea 0%, #faf6ec 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.verificar-tarjeta {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 16px 40px rgba(26, 77, 46, 0.15);
+  border-top: 6px solid #f4b942;
+  text-align: center;
+}
+
+.verificar-marca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #1a4d2e;
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+
+.verificar-marca img {
+  width: 46px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.verificar-marca span {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.verificar-marca small {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #c8934a;
+  letter-spacing: 0.5px;
+}
+
+.verificar-icono {
+  font-size: 2.6rem;
+  margin: 0 0 10px;
+}
+
+.verificar-tarjeta h1 {
+  margin: 0 0 10px;
+  font-size: 1.3rem;
+  color: #1a4d2e;
+}
+
+.verificar-mensaje {
+  margin: 0 0 22px;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.btn-verde {
+  display: inline-block;
+  padding: 12px 26px;
+  background: linear-gradient(135deg, #2f6b3a, #1a4d2e);
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(47, 107, 58, 0.35);
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.btn-verde:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}

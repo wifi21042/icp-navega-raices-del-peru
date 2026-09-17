@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox: oculta la barra de scroll */
+  -ms-overflow-style: none; /* Edge/IE viejo */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome/Edge/Safari: oculta la barra de scroll */
+}

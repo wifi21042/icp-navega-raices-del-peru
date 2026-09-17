@@ -1,0 +1,151 @@
+<div
+  class="minijuego-pagina"
+  [style.background-image]="'url(' + imagenFondo + ')'"
+  [style.--color-tema]="colorTema"
+>
+  <div class="minijuego-velo"></div>
+
+  <header class="minijuego-header">
+    <a routerLink="/juegos" class="minijuego-salir">← Salir</a>
+
+    <div class="minijuego-header__usuario">
+      <span class="minijuego-header__avatar">{{ emojiUsuario }}</span>
+      <div class="minijuego-header__datos">
+        <strong>Nivel {{ nivelActual }}</strong>
+        <span>⭐ {{ puntosActuales }} puntos</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="minijuego-contenido">
+    @if (cargando()) {
+      <p class="minijuego-mensaje">Cargando minijuego...</p>
+    } @else if (error() && !terminado()) {
+      <p class="minijuego-mensaje minijuego-mensaje--error">⚠️ {{ error() }}</p>
+      <a routerLink="/juegos" class="minijuego-boton-secundario">🎮 Ver todos los juegos</a>
+    } @else if (vista() === 'rondas') {
+      <section class="minijuego-tarjeta-titulo">
+        <h1>MINIJUEGO</h1>
+        <span class="minijuego-subtitulo">✨ Elige una ronda</span>
+        <strong class="minijuego-nombre">{{ iconoJuego }} {{ tituloJuego() }}</strong>
+      </section>
+
+      <section class="minijuego-rondas">
+        @for (ronda of rondas(); track ronda.ronda) {
+          <button
+            type="button"
+            class="minijuego-ronda"
+            [class.minijuego-ronda--bloqueada]="!ronda.desbloqueada"
+            [disabled]="!ronda.desbloqueada"
+            (click)="elegirRonda(ronda)"
+          >
+            <span class="minijuego-ronda__etiqueta">{{ etiquetaRonda(ronda.ronda) }}</span>
+
+            <div class="minijuego-ronda__estrellas">
+              @for (n of [1, 2, 3]; track n) {
+                <span class="estrella" [class.estrella--llena]="ronda.estrellas >= n">⭐</span>
+              }
+            </div>
+
+            @if (ronda.desbloqueada) {
+              <span class="minijuego-ronda__puntos">⭐ hasta {{ ronda.puntos }} pts</span>
+            } @else {
+              <span class="minijuego-ronda__candado">🔒 Completa la ronda anterior</span>
+            }
+          </button>
+        }
+      </section>
+    } @else if (!terminado()) {
+      <section class="minijuego-tarjeta-titulo">
+        <h1>MINIJUEGO</h1>
+        <span class="minijuego-subtitulo">✨ Responde y aprende</span>
+        <strong class="minijuego-nombre">{{ iconoJuego }} {{ juego()?.titulo }}</strong>
+      </section>
+
+      @if (preguntaActual(); as pregunta) {
+        <section class="minijuego-tarjeta">
+          <div class="minijuego-tarjeta__acento"></div>
+
+          <div class="minijuego-progreso-pasos">
+            @for (paso of juego()?.preguntas; track $index) {
+              <span
+                class="minijuego-paso"
+                [class.minijuego-paso--actual]="$index === indicePregunta()"
+                [class.minijuego-paso--hecho]="$index < indicePregunta()"
+              ></span>
+            }
+          </div>
+
+          <p class="minijuego-progreso-texto">
+            Pregunta {{ indicePregunta() + 1 }} de {{ juego()?.preguntas?.length }}
+          </p>
+          <h2 class="minijuego-pregunta">{{ pregunta.pregunta }}</h2>
+
+          <div class="minijuego-opciones">
+            @for (opcion of pregunta.opciones; track $index) {
+              <button
+                class="minijuego-opcion"
+                [class.minijuego-opcion--correcta]="respuestaSeleccionada() !== null && $index === pregunta.correcta"
+                [class.minijuego-opcion--incorrecta]="respuestaSeleccionada() === $index && $index !== pregunta.correcta"
+                [disabled]="respuestaSeleccionada() !== null"
+                (click)="elegir($index)"
+              >
+                <span class="minijuego-opcion__letra">{{ letra($index) }}</span>
+                <span class="minijuego-opcion__texto">{{ opcion }}</span>
+              </button>
+            }
+          </div>
+
+          @if (respuestaSeleccionada() !== null) {
+            <button class="minijuego-siguiente" [disabled]="enviando()" (click)="siguiente()">
+              {{ enviando() ? 'Guardando...' : esUltimaPregunta() ? '🏁 Ver resultado' : 'Siguiente pregunta →' }}
+            </button>
+          }
+        </section>
+
+        <div class="minijuego-estrellas">
+          @for (n of [1, 2, 3]; track n) {
+            <span class="estrella" [class.estrella--llena]="estrellasEnVivo() >= n">⭐</span>
+          }
+        </div>
+      }
+    } @else if (resultado()) {
+      <section class="minijuego-resultado">
+        <div class="minijuego-tarjeta__acento"></div>
+
+        <h2>{{ resultado()!.estrellas > 0 ? '¡Bien hecho! 🎉' : 'Sigue practicando 💪' }}</h2>
+
+        <div class="minijuego-estrellas minijuego-estrellas--grande">
+          @for (n of [1, 2, 3]; track n) {
+            <span class="estrella" [class.estrella--llena]="resultado()!.estrellas >= n">⭐</span>
+          }
+        </div>
+
+        <p class="minijuego-resultado__aciertos">
+          {{ resultado()!.correctas }} de {{ resultado()!.total }} respuestas correctas
+        </p>
+
+        @if (resultado()!.puntos_ganados > 0) {
+          <p class="minijuego-premio">
+            ⭐ +{{ resultado()!.puntos_ganados }} pts
+          </p>
+        } @else {
+          <p class="minijuego-premio minijuego-premio--sin-cambio">
+            Ya tenias este resultado (o uno mejor). ¡Intenta sacar las 3 estrellas!
+          </p>
+        }
+
+        @if (error()) {
+          <p class="minijuego-mensaje minijuego-mensaje--error">⚠️ {{ error() }}</p>
+        }
+
+        <div class="minijuego-resultado__botones">
+          <button class="minijuego-boton-secundario" (click)="jugarDeNuevo()">🔁 Jugar de nuevo</button>
+          <button class="minijuego-boton-secundario" (click)="volverARondas()">🗂️ Elegir otra ronda</button>
+          <a routerLink="/juegos" class="minijuego-boton-secundario">🎮 Ver todos los juegos</a>
+          <a routerLink="/" class="minijuego-boton-primario">🏠 Volver al inicio</a>
+        </div>
+      </section>
+    }
+  </main>
+</div>

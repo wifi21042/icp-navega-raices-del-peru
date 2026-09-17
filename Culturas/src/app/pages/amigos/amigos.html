@@ -1,0 +1,244 @@
+<div class="amigos-pagina">
+  <header class="amigos-header">
+    <a routerLink="/" class="amigos-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+    <a routerLink="/" class="amigos-volver">← Volver al inicio</a>
+  </header>
+
+  <main class="amigos-contenido">
+    <section class="amigos-intro">
+      <div class="amigos-intro__icono">👥</div>
+      <div>
+        <h1>Comunidad</h1>
+        <p>
+          Busca a tus companeros del colegio y enviales una solicitud. El ranking del inicio es
+          privado: solo compites con las personas que confirmes aqui como amigos.
+        </p>
+      </div>
+    </section>
+
+    <div class="amigos-grid">
+      @if (recibidas().length > 0) {
+        <section class="amigos-tarjeta amigos-tarjeta--dorada">
+          <div class="amigos-tarjeta__cabecera">
+            <span class="amigos-tarjeta__icono">📩</span>
+            <h2>Solicitudes recibidas <span class="amigos-contador">{{ recibidas().length }}</span></h2>
+          </div>
+
+          <ul class="amigos-lista">
+            @for (solicitud of recibidas(); track solicitud.solicitud_id) {
+              <li>
+                <span class="amigos-avatar">🙂</span>
+                <span class="amigos-nombre">{{ solicitud.nombre_personaje || solicitud.name }}</span>
+
+                @if (esConfirmando('aceptar', solicitud.solicitud_id)) {
+                  <div class="amigos-confirmar">
+                    <span>¿Aceptar?</span>
+                    <button class="boton-si" (click)="aceptar(solicitud)">Si</button>
+                    <button class="boton-no" (click)="cancelarConfirmacion()">No</button>
+                  </div>
+                } @else {
+                  <div class="amigos-acciones">
+                    <button
+                      class="boton-aceptar"
+                      (click)="pedirConfirmacion('aceptar', solicitud.solicitud_id)"
+                      [disabled]="respondiendoId() === solicitud.solicitud_id"
+                    >
+                      ✓ Aceptar
+                    </button>
+                    <button
+                      class="boton-rechazar"
+                      (click)="rechazar(solicitud)"
+                      [disabled]="respondiendoId() === solicitud.solicitud_id"
+                    >
+                      ✕ Rechazar
+                    </button>
+                  </div>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
+      <section class="amigos-tarjeta amigos-tarjeta--morada">
+        <div class="amigos-tarjeta__cabecera">
+          <span class="amigos-tarjeta__icono">🔍</span>
+          <h2>Buscar companeros</h2>
+        </div>
+
+        <div class="amigos-buscador">
+          <input
+            type="text"
+            [value]="texto()"
+            (input)="onTextoChange($any($event.target).value)"
+            (keyup.enter)="buscar()"
+            placeholder="Escribe el nombre o correo COMPLETO..."
+          />
+          <button (click)="buscar()" [disabled]="buscando()">
+            {{ buscando() ? 'Buscando...' : 'Buscar' }}
+          </button>
+        </div>
+
+        @if (errorBusqueda()) {
+          <p class="error">⚠️ {{ errorBusqueda() }}</p>
+        }
+
+        @if (yaBusco() && !buscando() && resultados().length === 0 && !errorBusqueda()) {
+          <p class="amigos-vacio">No encontramos a nadie con ese nombre o correo exacto. Revisa que este bien escrito, sin faltar ni sobrar letras.</p>
+        }
+
+        @if (resultados().length > 0) {
+          <ul class="amigos-lista">
+            @for (persona of resultados(); track persona.id) {
+              <li>
+                <span class="amigos-avatar">🙂</span>
+                <span class="amigos-nombre">{{ persona.nombre_personaje || persona.name }}</span>
+                <button
+                  class="boton-agregar"
+                  (click)="enviarSolicitud(persona)"
+                  [disabled]="enviandoId() === persona.id"
+                >
+                  {{ enviandoId() === persona.id ? 'Enviando...' : '+ Enviar solicitud' }}
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+
+      @if (enviadas().length > 0) {
+        <section class="amigos-tarjeta">
+          <div class="amigos-tarjeta__cabecera">
+            <span class="amigos-tarjeta__icono">⏳</span>
+            <h2>Solicitudes enviadas</h2>
+          </div>
+
+          <ul class="amigos-lista">
+            @for (solicitud of enviadas(); track solicitud.solicitud_id) {
+              <li>
+                <span class="amigos-avatar">🙂</span>
+                <span class="amigos-nombre">{{ solicitud.nombre_personaje || solicitud.name }}</span>
+                <span class="amigos-pendiente">Pendiente</span>
+
+                @if (esConfirmando('cancelar', solicitud.solicitud_id)) {
+                  <div class="amigos-confirmar">
+                    <span>¿Cancelar?</span>
+                    <button class="boton-si" (click)="cancelar(solicitud)">Si</button>
+                    <button class="boton-no" (click)="cancelarConfirmacion()">No</button>
+                  </div>
+                } @else {
+                  <button
+                    class="boton-cancelar"
+                    (click)="pedirConfirmacion('cancelar', solicitud.solicitud_id)"
+                    [disabled]="respondiendoId() === solicitud.solicitud_id"
+                  >
+                    Cancelar
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
+      <section class="amigos-tarjeta amigos-tarjeta--verde">
+        <div class="amigos-tarjeta__cabecera">
+          <span class="amigos-tarjeta__icono">🏆</span>
+          <h2>Tus amigos <span class="amigos-contador">{{ amigos().length }}</span></h2>
+        </div>
+
+        @if (cargandoAmigos()) {
+          <p class="amigos-vacio">Cargando...</p>
+        } @else if (amigos().length === 0) {
+          <p class="amigos-vacio">
+            Todavia no tienes amigos agregados. Buscalos arriba para empezar a competir en el
+            ranking.
+          </p>
+        } @else {
+          <ul class="amigos-lista">
+            @for (amigo of amigos(); track amigo.id; let i = $index) {
+              <li>
+                <span class="amigos-puesto">{{ i + 1 }}</span>
+                <span class="amigos-avatar">🙂</span>
+                <span class="amigos-nombre">{{ amigo.nombre_personaje || amigo.name }}</span>
+                <span class="amigos-puntos">{{ amigo.puntos || 0 }} pts</span>
+
+                @if (esConfirmando('quitar', amigo.id)) {
+                  <div class="amigos-confirmar">
+                    <span>¿Quitar?</span>
+                    <button class="boton-si" (click)="quitar(amigo)">Si</button>
+                    <button class="boton-no" (click)="cancelarConfirmacion()">No</button>
+                  </div>
+                } @else if (esConfirmando('bloquear', amigo.id)) {
+                  <div class="amigos-confirmar">
+                    <span>¿Bloquear?</span>
+                    <button class="boton-si" (click)="bloquear(amigo)">Si</button>
+                    <button class="boton-no" (click)="cancelarConfirmacion()">No</button>
+                  </div>
+                } @else {
+                  <div class="amigos-acciones">
+                    <button
+                      class="boton-quitar"
+                      (click)="pedirConfirmacion('quitar', amigo.id)"
+                      [disabled]="quitandoId() === amigo.id || bloqueandoId() === amigo.id"
+                    >
+                      {{ quitandoId() === amigo.id ? '...' : 'Quitar' }}
+                    </button>
+                    <button
+                      class="boton-bloquear"
+                      (click)="pedirConfirmacion('bloquear', amigo.id)"
+                      [disabled]="quitandoId() === amigo.id || bloqueandoId() === amigo.id"
+                    >
+                      {{ bloqueandoId() === amigo.id ? '...' : '🚫 Bloquear' }}
+                    </button>
+                  </div>
+                }
+              </li>
+            }
+          </ul>
+        }
+      </section>
+
+      @if (bloqueados().length > 0) {
+        <section class="amigos-tarjeta amigos-tarjeta--gris">
+          <div class="amigos-tarjeta__cabecera">
+            <span class="amigos-tarjeta__icono">🚫</span>
+            <h2>Usuarios bloqueados <span class="amigos-contador">{{ bloqueados().length }}</span></h2>
+          </div>
+
+          <ul class="amigos-lista">
+            @for (bloqueado of bloqueados(); track bloqueado.id) {
+              <li>
+                <span class="amigos-avatar">🙂</span>
+                <span class="amigos-nombre">{{ bloqueado.nombre_personaje || bloqueado.name }}</span>
+
+                @if (esConfirmando('desbloquear', bloqueado.id)) {
+                  <div class="amigos-confirmar">
+                    <span>¿Desbloquear?</span>
+                    <button class="boton-si" (click)="desbloquear(bloqueado)">Si</button>
+                    <button class="boton-no" (click)="cancelarConfirmacion()">No</button>
+                  </div>
+                } @else {
+                  <button
+                    class="boton-desbloquear"
+                    (click)="pedirConfirmacion('desbloquear', bloqueado.id)"
+                    [disabled]="desbloqueandoId() === bloqueado.id"
+                  >
+                    {{ desbloqueandoId() === bloqueado.id ? '...' : 'Desbloquear' }}
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    </div>
+  </main>
+</div>
+

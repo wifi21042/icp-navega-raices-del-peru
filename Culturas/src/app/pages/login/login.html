@@ -1,0 +1,80 @@
+<div class="auth-pagina">
+  <div class="auth-panel">
+    <img class="auth-panel__imagen" src="/img/sierra.a.jpeg" alt="" style="object-position: 15% 40%;" />
+    <div class="auth-panel__capa">
+      <a routerLink="/" class="auth-marca">
+        <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+        <span>
+          ICP
+          <small>NAVEGA POR LAS RAICES DEL PERU</small>
+        </span>
+      </a>
+
+      <div class="auth-panel__texto">
+        <h2>¡Bienvenido de vuelta, explorador!</h2>
+        <p>Inicia sesion para seguir tu aventura por las raices del Peru.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-formulario">
+    <a routerLink="/" class="auth-marca auth-marca--movil">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+
+    <div class="auth-tarjeta">
+      <h1>Iniciar sesion</h1>
+
+      @if (exito()) {
+        <p class="exito">🎉 Sesion iniciada correctamente. ¡Bienvenido, {{ auth.usuarioActual()?.name }}!</p>
+        <a
+          [routerLink]="auth.usuarioActual()?.personaje_completo ? '/' : '/personalizar'"
+          class="btn-enlace"
+        >
+          {{ auth.usuarioActual()?.personaje_completo ? 'Ir al inicio' : 'Personalizar mi personaje' }}
+        </a>
+      } @else {
+        <label>
+          <span class="label-texto">✉️ Correo</span>
+          <input
+            type="email"
+            autocomplete="email"
+            [value]="email()"
+            (input)="onEmailChange($any($event.target).value)"
+            placeholder="tucorreo@ejemplo.com"
+          />
+        </label>
+
+        <label>
+          <span class="label-texto">🔒 Contrasena</span>
+          <input
+            type="password"
+            autocomplete="current-password"
+            [value]="password()"
+            (input)="onPasswordChange($any($event.target).value)"
+            placeholder="********"
+          />
+        </label>
+
+        @if (error()) {
+          <p class="error">⚠️ {{ error() }}</p>
+        }
+
+        <button (click)="entrar()" [disabled]="cargando()">
+          {{ cargando() ? 'Entrando...' : '▶ Entrar' }}
+        </button>
+
+        <div class="separador-o"><span>o</span></div>
+        <div id="boton-google-login" class="boton-google-contenedor"></div>
+
+        <p class="ayuda"><a routerLink="/recuperar">¿Olvidaste tu contrasena?</a></p>
+        <p class="ayuda-demo">Usuario de prueba: demo&#64;cultura.pe / 123456</p>
+        <p class="ayuda">¿No tienes cuenta? <a routerLink="/registro">Registrate</a></p>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: icp-cultura-backend
+    runtime: docker
+    dockerfilePath: ./Cultura/Dockerfile
+    dockerContext: ./Cultura
+    plan: free
+    envVars:
+      - key: APP_NAME
+        value: "ICP - Navega por las Raices del Peru"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        value: https://icp-cultura-backend.onrender.com
+      - key: APP_KEY
+        sync: false
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /app/database/database.sqlite
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: GOOGLE_CLIENT_ID
+        sync: false

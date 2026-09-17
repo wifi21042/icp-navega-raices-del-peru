@@ -1,0 +1,273 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.aprende-pagina {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #eaf4ea 0%, #faf6ec 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.aprende-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #1a4d2e, #2f6b3a);
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.aprende-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.aprende-marca img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.aprende-marca span {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.1;
+}
+
+.aprende-marca small {
+  display: block;
+  color: #f4b942;
+  font-weight: 700;
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+}
+
+.aprende-volver {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.aprende-volver:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.aprende-contenido {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+
+.aprende-resumen {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px 26px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 30px rgba(26, 77, 46, 0.1);
+}
+
+.aprende-resumen h1 {
+  margin: 0 0 6px;
+  color: #1a4d2e;
+  font-size: 1.4rem;
+}
+
+.aprende-resumen p {
+  margin: 0;
+  color: #8a7a5a;
+  font-weight: 600;
+}
+
+.lecciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.leccion-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.15s ease;
+}
+
+.leccion-card__cabecera {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.leccion-card__imagen {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  flex-shrink: 0;
+}
+
+.leccion-card__info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+}
+
+.leccion-card__titulos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.leccion-card__titulos strong {
+  color: #1a4d2e;
+  font-size: 1rem;
+}
+
+.leccion-card__titulos span {
+  color: #8a7a5a;
+  font-size: 0.82rem;
+}
+
+.leccion-card__flecha {
+  color: #c8934a;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.lecciones__separador {
+  grid-column: 1 / -1;
+  margin: 18px 0 -2px;
+  color: #1a4d2e;
+  font-size: 1.15rem;
+}
+
+.aprende-ayuda {
+  margin-top: 26px;
+  text-align: center;
+  color: #8a7a5a;
+  font-size: 0.85rem;
+}
+
+.aprende-ayuda a {
+  color: #2f6b3a;
+  font-weight: 700;
+}
+
+@media (max-width: 620px) {
+  .aprende-header {
+    padding: 14px 18px;
+  }
+
+  .aprende-contenido {
+    padding: 24px 14px 40px;
+  }
+
+  .aprende-resumen {
+    padding: 18px 20px;
+  }
+
+  .lecciones {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leccion-fondo {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 25, 20, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+
+.leccion-modal {
+  position: relative;
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.leccion-modal__cerrar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 800;
+  color: #8a7a5a;
+  z-index: 1;
+}
+
+.leccion-modal__imagen {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  display: block;
+}
+
+.leccion-modal__cuerpo {
+  padding: 20px 24px 26px;
+}
+
+.leccion-modal__cuerpo h2 {
+  margin: 0 0 8px;
+  color: #1a4d2e;
+  font-size: 1.25rem;
+}
+
+.leccion-modal__resumen {
+  margin: 0 0 14px;
+  color: #8a7a5a;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.leccion-modal__texto {
+  margin: 0;
+  color: #4a5a44;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}

@@ -1,0 +1,106 @@
+<div class="accesorios-pagina">
+  <header class="accesorios-header">
+    <a routerLink="/" class="accesorios-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+    <a routerLink="/" class="accesorios-volver">← Volver al inicio</a>
+  </header>
+
+  <main class="accesorios-contenido">
+    <div class="accesorios-grid">
+      <section class="accesorios-panel">
+        <h1>🎒 Accesorios</h1>
+        <p class="subtitulo">¡Usa y combina accesorios para verte increible!</p>
+
+        @if (error()) {
+          <p class="error">⚠️ {{ error() }}</p>
+        }
+        @if (exito()) {
+          <p class="exito">✅ Guardado. Asi se ve tu personaje ahora.</p>
+        }
+
+        @for (categoria of categorias; track categoria.titulo) {
+          <div class="categoria">
+            <h2 [class.categoria__titulo--especial]="categoria.especial">{{ categoria.titulo }}</h2>
+            <div class="categoria__grid">
+              @for (accesorio of categoria.opciones; track accesorio.id) {
+                <button
+                  class="accesorio-card"
+                  [class.accesorio-card--seleccionado]="estaSeleccionado(accesorio.id)"
+                  [class.accesorio-card--bloqueado]="!estaDesbloqueado(accesorio)"
+                  (click)="alternar(accesorio)"
+                >
+                  <span class="accesorio-card__icono">
+                    @if (imagenFallo(accesorio.id)) {
+                      {{ accesorio.emoji }}
+                    } @else {
+                      <img class="accesorio-card__img" [src]="accesorio.imagen" alt="" (error)="marcarImagenFallida(accesorio.id)" />
+                    }
+                  </span>
+                  <span class="accesorio-card__etiqueta">{{ accesorio.etiqueta }}</span>
+                  @if (!estaDesbloqueado(accesorio)) {
+                    <span class="accesorio-card__candado">🔒 {{ accesorio.umbral }} pts</span>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+        }
+
+        <p class="nota">⭐ Sigue completando retos para ganar puntos y desbloquear mas accesorios.</p>
+
+        <button class="boton-guardar" (click)="guardar()" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : '💾 Guardar accesorios' }}
+        </button>
+      </section>
+
+      <section class="accesorios-vista-previa">
+        <div class="tarjeta-preview" [style.borderColor]="colorRopa">
+          <span class="puntos-actuales">⭐ {{ puntosActuales }} pts</span>
+          <div class="circulo-piel">
+            @if (!imagenAvatar || imagenFallo(claveImagenAvatar)) {
+              <span class="emoji-avatar">{{ emojiAvatar }}</span>
+            } @else {
+              <img class="imagen-avatar" [src]="imagenAvatar" alt="" (error)="marcarImagenFallida(claveImagenAvatar)" />
+            }
+
+            @for (accesorio of accesoriosSobrePersonaje; track accesorio.id) {
+              @if (!imagenFallo(accesorio.id)) {
+                <img
+                  class="accesorio-sobre-personaje"
+                  [src]="accesorio.imagen"
+                  [alt]="accesorio.etiqueta"
+                  [style.top]="posicionTop(accesorio.id)"
+                  [style.left]="posicionLeft(accesorio.id)"
+                  [style.width]="posicionAncho(accesorio.id)"
+                  [style.zIndex]="posicionZ(accesorio.id)"
+                  (error)="marcarImagenFallida(accesorio.id)"
+                />
+              }
+            }
+          </div>
+          <div class="etiqueta-ropa" [style.background]="colorRopa">{{ etiquetaRopa }}</div>
+          <p class="nombre-preview">{{ auth.usuarioActual()?.nombre_personaje }}</p>
+
+          @if (accesoriosEnFila.length > 0) {
+            <div class="fila-accesorios-preview">
+              @for (accesorio of accesoriosEnFila; track accesorio.id) {
+                <span class="accesorio-preview" [title]="accesorio.etiqueta">
+                  @if (imagenFallo(accesorio.id)) {
+                    {{ accesorio.emoji }}
+                  } @else {
+                    <img class="accesorio-preview__img" [src]="accesorio.imagen" alt="" (error)="marcarImagenFallida(accesorio.id)" />
+                  }
+                </span>
+              }
+            </div>
+          }
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,504 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.amigos-pagina {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #eaf4ea 0%, #faf6ec 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.amigos-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #1a4d2e, #2f6b3a);
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.amigos-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.amigos-marca img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.amigos-marca span {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.1;
+}
+
+.amigos-marca small {
+  display: block;
+  color: #f4b942;
+  font-weight: 700;
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+}
+
+.amigos-volver {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.amigos-volver:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.amigos-contenido {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+
+/* Usamos columnas tipo "periodico" en vez de una grilla de filas: asi cada
+   tarjeta se acomoda pegada a la de arriba segun su propio alto, sin dejar
+   espacios vacios cuando una tarjeta es mas corta que la de al lado. */
+.amigos-grid {
+  column-count: 2;
+  column-gap: 24px;
+}
+
+@media (max-width: 700px) {
+  .amigos-grid {
+    column-count: 1;
+  }
+}
+
+.amigos-grid .amigos-tarjeta {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin-bottom: 24px;
+}
+
+/* Las columnas de esta fila son mas angostas que el resto de la pagina, asi
+   que cuando no entran todos los datos en una sola linea, los botones de
+   accion pasan a una segunda linea (alineados a la derecha) en vez de
+   apretujar el nombre. */
+.amigos-grid .amigos-lista li {
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+.amigos-grid .amigos-acciones,
+.amigos-grid .amigos-confirmar,
+.amigos-grid .boton-desbloquear {
+  margin-left: auto;
+}
+
+.amigos-intro {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 30px rgba(26, 77, 46, 0.1);
+}
+
+.amigos-intro__icono {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f4b942, #e8a63a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 6px 14px rgba(228, 166, 58, 0.4);
+}
+
+.amigos-intro h1 {
+  margin: 0 0 4px;
+  color: #1a4d2e;
+  font-size: 1.3rem;
+}
+
+.amigos-intro p {
+  margin: 0;
+  color: #6b6252;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.amigos-tarjeta {
+  background: #fdf6e3;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(26, 77, 46, 0.12);
+  margin-bottom: 24px;
+  border-top: 6px solid transparent;
+}
+
+.amigos-tarjeta--dorada {
+  border-top-color: #f4b942;
+}
+
+.amigos-tarjeta--morada {
+  border-top-color: #6c3fa1;
+}
+
+.amigos-tarjeta--verde {
+  border-top-color: #2f6b3a;
+}
+
+.amigos-tarjeta--gris {
+  border-top-color: #9a9a9a;
+  background: #f2f1ec;
+}
+
+.amigos-tarjeta__cabecera {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.amigos-tarjeta__icono {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.amigos-tarjeta__cabecera h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #1a4d2e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amigos-contador {
+  background: #1a4d2e;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+
+.amigos-buscador {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.amigos-buscador input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1.5px solid #e0ddd2;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.amigos-buscador input:focus {
+  outline: none;
+  border-color: #f4b942;
+  box-shadow: 0 0 0 3px rgba(244, 185, 66, 0.25);
+}
+
+.amigos-buscador button {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #7a4fc0, #6c3fa1);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.amigos-buscador button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.amigos-buscador button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.amigos-vacio {
+  color: #8a7a5a;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.amigos-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 560px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.amigos-lista::-webkit-scrollbar {
+  width: 8px;
+}
+
+.amigos-lista::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.amigos-lista::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+}
+
+.amigos-lista::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.amigos-lista li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 6px;
+  border-radius: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: background 0.15s ease;
+}
+
+.amigos-lista li:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.amigos-lista li:last-child {
+  border-bottom: none;
+}
+
+.amigos-puesto {
+  width: 22px;
+  text-align: center;
+  font-weight: 800;
+  color: #c8934a;
+}
+
+.amigos-avatar {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: #eaf4ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.amigos-nombre {
+  flex: 1;
+  min-width: 100px;
+  font-weight: 600;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.amigos-puntos {
+  color: #c8934a;
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.amigos-pendiente {
+  color: #9a8a5a;
+  font-size: 0.78rem;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.amigos-acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.boton-agregar,
+.boton-aceptar {
+  padding: 7px 15px;
+  background: linear-gradient(135deg, #2f6b3a, #1a4d2e);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.boton-agregar:hover:not(:disabled),
+.boton-aceptar:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.boton-rechazar,
+.boton-quitar,
+.boton-cancelar {
+  padding: 7px 15px;
+  background: #fceceb;
+  color: #c0392b;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.15s ease;
+}
+
+.boton-rechazar:hover:not(:disabled),
+.boton-quitar:hover:not(:disabled),
+.boton-cancelar:hover:not(:disabled) {
+  filter: brightness(0.96);
+}
+
+.boton-desbloquear {
+  padding: 7px 15px;
+  background: #e8e6dd;
+  color: #55524a;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.15s ease;
+}
+
+.boton-desbloquear:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+.boton-bloquear {
+  padding: 7px 15px;
+  background: #fff;
+  color: #c0392b;
+  border: 1.5px solid #f0b9b3;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.15s ease, background 0.15s ease;
+}
+
+.boton-bloquear:hover:not(:disabled) {
+  background: #fceceb;
+}
+
+.amigos-lista button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.amigos-confirmar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff6e3;
+  border: 1.5px solid #f4b942;
+  border-radius: 999px;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+.amigos-confirmar span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #6b6252;
+}
+
+.boton-si,
+.boton-no {
+  padding: 5px 13px;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.boton-si {
+  background: linear-gradient(135deg, #2f6b3a, #1a4d2e);
+  color: #fff;
+}
+
+.boton-no {
+  background: #fceceb;
+  color: #c0392b;
+}
+
+.boton-si:hover,
+.boton-no:hover {
+  filter: brightness(1.08);
+}
+
+.error {
+  color: #c0392b;
+  background: #fceceb;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  margin: 0 0 12px;
+}
+
+@media (max-width: 480px) {
+  .amigos-intro {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .amigos-lista li {
+    flex-wrap: wrap;
+  }
+
+  .amigos-acciones {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

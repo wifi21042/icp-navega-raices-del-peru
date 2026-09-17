@@ -1,0 +1,59 @@
+<!-- v2 -->
+<div class="aprende-pagina">
+  <header class="aprende-header">
+    <a routerLink="/" class="aprende-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+    <a routerLink="/" class="aprende-volver">← Volver al inicio</a>
+  </header>
+
+  <main class="aprende-contenido">
+    <section class="aprende-resumen">
+      <h1>📖 Aprende</h1>
+      <p>Contenido educativo sobre el Peru. Toca una lección para leerla completa.</p>
+    </section>
+
+    @for (tema of temas; track tema.id) {
+      <h2 class="lecciones__separador">{{ tema.icono }} {{ tema.titulo }}</h2>
+      <div class="lecciones">
+        @for (leccion of leccionesPorTema(tema.id); track leccion.id) {
+          <article class="leccion-card">
+            <button class="leccion-card__cabecera" (click)="abrirLeccion(leccion)">
+              <img class="leccion-card__imagen" [src]="leccion.imagen" [alt]="leccion.titulo" />
+              <div class="leccion-card__info">
+                <div class="leccion-card__titulos">
+                  <strong>{{ leccion.icono }} {{ leccion.titulo }}</strong>
+                  <span>{{ leccion.resumen }}</span>
+                </div>
+                <span class="leccion-card__flecha">▼</span>
+              </div>
+            </button>
+          </article>
+        }
+      </div>
+    }
+
+    <p class="aprende-ayuda">
+      🏆 Leer sobre los Incas, la musica andina o la gastronomia te ayuda a completar los retos correspondientes en
+      <a routerLink="/retos">Retos</a>.
+    </p>
+  </main>
+
+  @if (leccionAbierta(); as leccion) {
+    <div class="leccion-fondo" (click)="cerrarLeccion()">
+      <div class="leccion-modal" (click)="$event.stopPropagation()">
+        <button class="leccion-modal__cerrar" (click)="cerrarLeccion()">✕</button>
+        <img class="leccion-modal__imagen" [src]="leccion.imagen" [alt]="leccion.titulo" />
+        <div class="leccion-modal__cuerpo">
+          <h2>{{ leccion.icono }} {{ leccion.titulo }}</h2>
+          <p class="leccion-modal__resumen">{{ leccion.resumen }}</p>
+          <p class="leccion-modal__texto">{{ leccion.contenido }}</p>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,200 @@
+<header class="header">
+  <div class="header__marca">
+    <img class="header__escudo" [src]="escudo" alt="Escudo del colegio" />
+    <div class="header__texto-marca">
+      <span class="header__icp">ICP</span>
+      <span class="header__subtitulo">NAVEGA POR<br />LAS RAICES DEL PERU</span>
+    </div>
+  </div>
+
+  @if (menuNavAbierto()) {
+    <div class="header__nav-fondo" (click)="cerrarMenuNav()"></div>
+  }
+
+  <nav class="header__nav" [class.header__nav--abierto]="menuNavAbierto()">
+    <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: true }" (click)="cerrarMenuNav()">🏠 Inicio</a>
+    <a routerLink="/juegos" routerLinkActive="activo" (click)="cerrarMenuNav()">🎮 Juegos</a>
+    <a routerLink="/aprender" routerLinkActive="activo" (click)="cerrarMenuNav()">📖 Aprende</a>
+    <a routerLink="/explorar" routerLinkActive="activo" (click)="cerrarMenuNav()">📍 Explora</a>
+    <a routerLink="/retos" routerLinkActive="activo" (click)="cerrarMenuNav()">🏆 Retos</a>
+    <a routerLink="/recompensas" routerLinkActive="activo" (click)="cerrarMenuNav()">🎖️ Logros</a>
+    <a routerLink="/accesorios" routerLinkActive="activo" (click)="cerrarMenuNav()">🎁 Premios</a>
+    <a routerLink="/amigos" class="header__comunidad" (click)="cerrarMenuNav()">
+      👥 Comunidad
+      @if (solicitudesPendientes() > 0) {
+        <span class="header__badge">{{ solicitudesPendientes() }}</span>
+      }
+    </a>
+  </nav>
+
+  <div class="header__acciones">
+    <button
+      type="button"
+      class="header__hamburguesa"
+      [class.header__hamburguesa--abierto]="menuNavAbierto()"
+      (click)="toggleMenuNav()"
+      aria-label="Abrir menu de navegacion"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="header__derecha">
+    @if (auth.estaLogueado()) {
+      <div class="perfil-menu">
+        <button class="perfil-usuario" (click)="toggleMenu()">
+          <span class="perfil-usuario__avatar">
+            @if (!imagenUsuario || imagenFallo(claveImagenUsuario)) {
+              {{ emojiUsuario }}
+            } @else {
+              <img class="perfil-usuario__avatar-img" [src]="imagenUsuario" alt="" (error)="marcarImagenFallida(claveImagenUsuario)" />
+            }
+          </span>
+          <span class="perfil-usuario__nombre">{{ auth.usuarioActual()?.nombre_personaje || auth.usuarioActual()?.name }}</span>
+          <span class="perfil-usuario__flecha">{{ menuAbierto() ? '▲' : '▼' }}</span>
+        </button>
+
+        @if (menuAbierto()) {
+          <div class="perfil-dropdown">
+            <a routerLink="/cuenta" class="perfil-dropdown__item" (click)="cerrarMenu()">
+              ⚙️ Editar cuenta y contrasena
+            </a>
+            <a routerLink="/personalizar" class="perfil-dropdown__item" (click)="cerrarMenu()">
+              🧑‍🎨 Editar personaje
+            </a>
+            <button class="perfil-dropdown__item perfil-dropdown__item--salir" (click)="cerrarSesion()">
+              🚪 Cerrar sesion
+            </button>
+          </div>
+        }
+      </div>
+    } @else {
+      <a routerLink="/login" class="btn btn--outline">Iniciar sesion</a>
+      <a routerLink="/registro" class="btn btn--dorado">Registrarse</a>
+    }
+    </div>
+  </div>
+</header>
+
+@if (avisos().length > 0) {
+  <div class="avisos-banner">
+    @for (aviso of avisos(); track aviso.id) {
+      <div class="aviso-item">
+        <span>ℹ️ {{ aviso.mensaje }}</span>
+        <button class="aviso-item__cerrar" (click)="cerrarAviso(aviso.id)">✕</button>
+      </div>
+    }
+  </div>
+}
+
+<section class="hero">
+  <img class="hero__imagen" [src]="imagenHero" alt="Ninos explorando el Peru" />
+  <a [routerLink]="auth.estaLogueado() ? '/juegos' : '/registro'" class="btn btn--verde btn--grande hero__boton">▶ ¡Comienza tu aventura!</a>
+</section>
+
+<section class="juegos">
+  <div class="juegos__cabecera">
+    <h2>🎮 JUEGOS DESTACADOS</h2>
+    <a routerLink="/juegos" class="ver-todos">Ver todos →</a>
+  </div>
+
+  <div class="juegos__lista">
+    @for (juego of juegos(); track juego.id) {
+      <article class="juego-card">
+        <img [src]="juego.imagen" [alt]="juego.titulo" />
+        <div class="juego-card__cuerpo">
+          <h3>{{ juego.titulo }}</h3>
+          <p>{{ juego.descripcion }}</p>
+          <div class="juego-card__pie">
+            <a [routerLink]="auth.estaLogueado() ? '/' : '/login'" class="btn btn--jugar" [class]="'btn--' + juego.color">Jugar</a>
+            <span class="juego-card__puntos">⭐ {{ juego.puntos }} pts</span>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="contenido-inferior">
+  <div class="que-puedes-hacer">
+    <h2>🌿 ¿QUE PUEDES HACER EN ICP?</h2>
+    <div class="que-puedes-hacer__grid">
+      <div class="funcion-card funcion-card--verde">
+        <span class="funcion-card__icono">🧭</span>
+        <h3>Explora</h3>
+        <p>Recorre las 3 regiones del Peru y sus maravillas.</p>
+      </div>
+      <div class="funcion-card funcion-card--morado">
+        <span class="funcion-card__icono">📖</span>
+        <h3>Aprende</h3>
+        <p>Contenido educativo divertido e interactivo.</p>
+      </div>
+      <div class="funcion-card funcion-card--dorado">
+        <span class="funcion-card__icono">🏆</span>
+        <h3>Retos</h3>
+        <p>Completa desafios y gana recompensas.</p>
+      </div>
+      <div class="funcion-card funcion-card--rosado">
+        <span class="funcion-card__icono">👥</span>
+        <h3>Comunidad</h3>
+        <p>Comparte, participa y aprende con otros jugadores.</p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="ranking">
+    <h2>🏆 RANKING DE TUS AMIGOS</h2>
+
+    @if (!auth.estaLogueado()) {
+      <p class="ranking__vacio">Inicia sesion para ver el ranking de tus amigos.</p>
+    } @else if (cargandoRanking()) {
+      <p class="ranking__vacio">Cargando...</p>
+    } @else if (ranking().length === 0) {
+      <p class="ranking__vacio">
+        Todavia no tienes amigos agregados. Este ranking es privado: solo compites con las
+        personas que agregues en Comunidad.
+      </p>
+    } @else {
+      <ul class="ranking__lista">
+        @for (amigo of ranking(); track amigo.id; let i = $index) {
+          <li>
+            <span class="ranking__puesto">{{ i + 1 }}</span>
+            <span class="ranking__avatar-emoji">
+              @if (!imagenAmigo(amigo) || imagenFallo(claveImagenAmigo(amigo))) {
+                {{ emojiAmigo(amigo) }}
+              } @else {
+                <img class="ranking__avatar-img" [src]="imagenAmigo(amigo)" alt="" (error)="marcarImagenFallida(claveImagenAmigo(amigo))" />
+              }
+            </span>
+            <span class="ranking__nombre">{{ amigo.nombre_personaje || amigo.name }}</span>
+            <span class="ranking__puntos">{{ (amigo.puntos || 0) | number }} pts</span>
+          </li>
+        }
+      </ul>
+    }
+
+    <a routerLink="/amigos" class="btn btn--verde btn--ancho">
+      {{ ranking().length === 0 ? '+ Agregar amigos' : 'Administrar amigos' }}
+    </a>
+  </aside>
+</section>
+
+<footer class="pie">
+  <div class="pie__marca">
+    <strong>ICP - NAVEGA POR LAS RAICES DEL PERU</strong>
+    <p>Valoramos lo que somos, construimos un mejor futuro.</p>
+  </div>
+  <div class="pie__valores">
+    <span>❤ Respetos</span>
+    <span>👥 Diversidad</span>
+    <span>⭐ Orgullo</span>
+  </div>
+  <div class="pie__redes">
+    <span>Siguenos:</span>
+    <a href="#">📘</a>
+    <a href="#">📷</a>
+    <a href="#">▶</a>
+    <a href="#">🎵</a>
+  </div>
+</footer>

@@ -1,0 +1,243 @@
+<div class="cuenta-pagina">
+  <header class="cuenta-header">
+    <a routerLink="/" class="cuenta-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+    <a routerLink="/" class="cuenta-volver">← Volver al inicio</a>
+  </header>
+
+  <main class="cuenta-contenido">
+    <section class="cuenta-resumen">
+      <div class="cuenta-resumen__avatar">
+        @if (!imagenAvatar || imagenFallo(claveImagenAvatar)) {
+          <span class="cuenta-resumen__avatar-emoji">{{ emojiUsuario }}</span>
+        } @else {
+          <img
+            class="cuenta-resumen__avatar-img"
+            [src]="imagenAvatar"
+            alt=""
+            (error)="marcarImagenFallida(claveImagenAvatar)"
+          />
+        }
+      </div>
+      <div class="cuenta-resumen__texto">
+        <h1>Mi cuenta</h1>
+        <p>
+          {{ auth.usuarioActual()?.nombre_personaje || auth.usuarioActual()?.name }}
+          <span class="cuenta-resumen__correo">· {{ auth.usuarioActual()?.email }}</span>
+        </p>
+      </div>
+    </section>
+
+    <div class="cuenta-grid">
+      <section class="cuenta-tarjeta cuenta-tarjeta--verde">
+        <div class="cuenta-tarjeta__cabecera">
+          <span class="cuenta-tarjeta__icono">👤</span>
+          <div>
+            <h2>Datos de la cuenta</h2>
+            <p class="cuenta-tarjeta__subtitulo">Tu nombre y correo de acceso</p>
+          </div>
+        </div>
+
+        <label>
+          <span class="label-texto">Nombre</span>
+          <input
+            type="text"
+            [value]="name()"
+            (input)="onNameChange($any($event.target).value)"
+            placeholder="Tu nombre"
+          />
+        </label>
+
+        <label>
+          <span class="label-texto">Correo</span>
+          <input
+            type="email"
+            autocomplete="email"
+            [value]="email()"
+            (input)="onEmailChange($any($event.target).value)"
+            placeholder="tucorreo@ejemplo.com"
+          />
+        </label>
+
+        @if (errorPerfil()) {
+          <p class="error">⚠️ {{ errorPerfil() }}</p>
+        }
+        @if (exitoPerfil()) {
+          <p class="exito">✅ Datos actualizados correctamente.</p>
+        }
+
+        <button class="boton-verde" (click)="guardarPerfil()" [disabled]="guardandoPerfil()">
+          {{ guardandoPerfil() ? 'Guardando...' : '💾 Guardar cambios' }}
+        </button>
+      </section>
+
+      <section class="cuenta-tarjeta cuenta-tarjeta--dorada">
+        <div class="cuenta-tarjeta__cabecera">
+          <span class="cuenta-tarjeta__icono">🔒</span>
+          <div>
+            <h2>{{ necesitaCrearPassword ? 'Crear contrasena' : 'Cambiar contrasena' }}</h2>
+            <p class="cuenta-tarjeta__subtitulo">
+              {{
+                necesitaCrearPassword
+                  ? 'Tu cuenta se creo con Google. Crea una contrasena para poder entrar tambien sin Google.'
+                  : 'Mantén tu cuenta protegida'
+              }}
+            </p>
+          </div>
+        </div>
+
+        @if (!necesitaCrearPassword) {
+          <label>
+            <span class="label-texto">Contrasena actual</span>
+            <input
+              type="password"
+              autocomplete="current-password"
+              [value]="passwordActual()"
+              (input)="onPasswordActualChange($any($event.target).value)"
+              placeholder="********"
+            />
+          </label>
+        }
+
+        <label>
+          <span class="label-texto">{{ necesitaCrearPassword ? 'Nueva contrasena' : 'Nueva contrasena' }}</span>
+          <input
+            type="password"
+            autocomplete="new-password"
+            [value]="passwordNueva()"
+            (input)="onPasswordNuevaChange($any($event.target).value)"
+            placeholder="********"
+          />
+        </label>
+
+        <label>
+          <span class="label-texto">Confirmar nueva contrasena</span>
+          <input
+            type="password"
+            autocomplete="new-password"
+            [value]="passwordConfirmacion()"
+            (input)="onPasswordConfirmacionChange($any($event.target).value)"
+            placeholder="********"
+          />
+        </label>
+
+        @if (errorPassword()) {
+          <p class="error">⚠️ {{ errorPassword() }}</p>
+        }
+        @if (exitoPassword()) {
+          <p class="exito">✅ Contrasena actualizada correctamente.</p>
+        }
+
+        <button class="boton-dorado" (click)="cambiarPassword()" [disabled]="guardandoPassword()">
+          {{
+            guardandoPassword()
+              ? 'Guardando...'
+              : necesitaCrearPassword
+                ? '🔑 Crear contrasena'
+                : '🔑 Cambiar contrasena'
+          }}
+        </button>
+      </section>
+    </div>
+
+    <section class="cuenta-tarjeta cuenta-tarjeta--google">
+      <div class="cuenta-tarjeta__cabecera">
+        <span class="cuenta-tarjeta__icono">🔗</span>
+        <div>
+          <h2>Cuenta de Google</h2>
+          <p class="cuenta-tarjeta__subtitulo">Inicia sesion mas rapido con tu Gmail</p>
+        </div>
+      </div>
+
+      @if (errorGoogle()) {
+        <p class="error">⚠️ {{ errorGoogle() }}</p>
+      }
+      @if (exitoGoogle()) {
+        <p class="exito">✅ {{ exitoGoogle() }}</p>
+      }
+
+      @if (auth.usuarioActual()?.google_email) {
+        <p class="cuenta-aviso">
+          Tu cuenta esta vinculada con <strong>{{ auth.usuarioActual()?.google_email }}</strong>.
+          Puedes usar ese Gmail para iniciar sesion, ademas de tu correo y contrasena.
+        </p>
+        <button
+          class="boton-desvincular-google"
+          (click)="desvincularGoogle()"
+          [disabled]="procesandoGoogle()"
+        >
+          {{ procesandoGoogle() ? 'Procesando...' : 'Desvincular cuenta de Google' }}
+        </button>
+      } @else {
+        <p class="cuenta-aviso">
+          Vincula tu cuenta de Google para poder iniciar sesion con tu Gmail, sin perder tu
+          personaje ni tu progreso.
+        </p>
+        <div id="boton-google-vincular" class="boton-google-contenedor"></div>
+      }
+    </section>
+
+    <section class="cuenta-tarjeta cuenta-tarjeta--peligro">
+      <div class="cuenta-tarjeta__cabecera">
+        <span class="cuenta-tarjeta__icono">🗑️</span>
+        <div>
+          <span class="cuenta-tarjeta__zona-peligro">Zona de peligro</span>
+          <h2>Eliminar cuenta</h2>
+          <p class="cuenta-tarjeta__subtitulo">Esta accion no se puede deshacer</p>
+        </div>
+      </div>
+
+      @if (cuentaEliminada()) {
+        <p class="exito">✅ Tu cuenta fue eliminada. Cerrando sesion...</p>
+      } @else if (pidiendoPasswordEliminar()) {
+        <p class="cuenta-aviso">
+          Escribe tu contrasena para confirmar que quieres eliminar tu cuenta para siempre.
+        </p>
+
+        <label>
+          <span class="label-texto">Contrasena</span>
+          <input
+            type="password"
+            autocomplete="current-password"
+            [value]="passwordEliminar()"
+            (input)="onPasswordEliminarChange($any($event.target).value)"
+            placeholder="********"
+          />
+        </label>
+
+        @if (errorEliminar()) {
+          <p class="error">⚠️ {{ errorEliminar() }}</p>
+        }
+
+        <div class="cuenta-acciones-peligro">
+          <button class="boton-peligro" (click)="eliminarCuenta()" [disabled]="eliminando()">
+            {{ eliminando() ? 'Eliminando...' : '🗑️ Eliminar cuenta para siempre' }}
+          </button>
+          <button class="boton-cancelar-peligro" (click)="cancelarEliminar()" [disabled]="eliminando()">
+            Cancelar
+          </button>
+        </div>
+      } @else if (confirmandoEliminar()) {
+        <p class="cuenta-aviso">
+          ¿Seguro que quieres eliminar tu cuenta? Se borra tu personaje, tus amigos y todo tu
+          progreso.
+        </p>
+        <div class="cuenta-acciones-peligro">
+          <button class="boton-si" (click)="confirmarEliminar()">Si, eliminar</button>
+          <button class="boton-no" (click)="cancelarEliminar()">No</button>
+        </div>
+      } @else {
+        <p class="cuenta-aviso">
+          Al eliminar tu cuenta se borra tu personaje, tus amigos y todo tu progreso. Tu correo y
+          tu nombre quedan libres para usarse de nuevo despues.
+        </p>
+        <button class="boton-peligro" (click)="pedirConfirmacionEliminar()">🗑️ Eliminar cuenta</button>
+      }
+    </section>
+  </main>
+</div>

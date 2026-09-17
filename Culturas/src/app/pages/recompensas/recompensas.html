@@ -1,0 +1,132 @@
+<div class="recompensas-pagina">
+  <header class="recompensas-header">
+    <a routerLink="/" class="recompensas-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+    <a routerLink="/" class="recompensas-volver">← Volver al inicio</a>
+  </header>
+
+  <main class="recompensas-contenido">
+    <section class="recompensas-resumen">
+      <h1>🏆 Recompensas</h1>
+      <p>¡Juega, gana y desbloquea premios!</p>
+    </section>
+
+    <section class="recompensas-bloque">
+      <h2 class="recompensas-titulo">LOGROS</h2>
+
+      @if (cargandoLogros()) {
+        <p class="logros__cargando">Cargando logros...</p>
+      } @else {
+        <div class="logros__pestanas">
+          <button
+            type="button"
+            class="logros__pestana"
+            [class.logros__pestana--activa]="pestanaActiva() === 'mios'"
+            (click)="pestanaActiva.set('mios')"
+          >
+            Mis logros
+          </button>
+          <button
+            type="button"
+            class="logros__pestana"
+            [class.logros__pestana--activa]="pestanaActiva() === 'globales'"
+            (click)="pestanaActiva.set('globales')"
+          >
+            Logros globales
+          </button>
+        </div>
+
+        @if (pestanaActiva() === 'mios') {
+          <p class="logros__conteo">
+            Desbloqueaste {{ cantidadDesbloqueados() }} de {{ logros().length }} logros
+          </p>
+
+          @if (logrosDesbloqueados().length > 0) {
+            <div class="logros__grid">
+              @for (logro of logrosDesbloqueados(); track logro.id) {
+                <div class="logro-card logro-card--conseguido">
+                  <span class="logro-card__icono">{{ logro.icono }}</span>
+                  <strong>{{ logro.titulo }}</strong>
+                  <span class="logro-card__descripcion">{{ logro.descripcion }}</span>
+                  <span class="logro-card__fecha">✅ {{ etiquetaFecha(logro) }}</span>
+                  <span class="logro-card__rareza" [class]="'logro-card__rareza--' + logro.rareza">
+                    {{ etiquetaRareza(logro) }}
+                  </span>
+                </div>
+              }
+            </div>
+          } @else {
+            <p class="logros__vacio">Todavia no desbloqueas ningun logro. ¡Sigue jugando!</p>
+          }
+
+          @if (logrosPendientes().length > 0) {
+            <h3 class="logros__subtitulo">Por conseguir</h3>
+            <div class="logros__grid">
+              @for (logro of logrosPendientes(); track logro.id) {
+                <div class="logro-card logro-card--bloqueado">
+                  <span class="logro-card__icono">{{ logro.icono }}</span>
+                  <strong>{{ logro.titulo }}</strong>
+                  <span class="logro-card__descripcion">{{ logro.descripcion }}</span>
+                  <span class="logro-card__rareza" [class]="'logro-card__rareza--' + logro.rareza">
+                    🔒 {{ etiquetaRareza(logro) }}
+                  </span>
+                </div>
+              }
+            </div>
+          }
+        } @else {
+          <p class="logros__conteo">Del mas raro al mas comun, entre todos los jugadores.</p>
+          <div class="logros__grid">
+            @for (logro of logrosGlobales(); track logro.id) {
+              <div class="logro-card" [class.logro-card--bloqueado]="!logro.desbloqueado">
+                <span class="logro-card__icono">{{ logro.icono }}</span>
+                <strong>
+                  {{ logro.titulo }}
+                  @if (logro.desbloqueado) {
+                    <span class="logro-card__check">✔</span>
+                  }
+                </strong>
+                <span class="logro-card__descripcion">{{ logro.descripcion }}</span>
+                <span class="logro-card__rareza" [class]="'logro-card__rareza--' + logro.rareza">
+                  🟡 {{ etiquetaRareza(logro) }}
+                </span>
+              </div>
+            }
+          </div>
+        }
+      }
+    </section>
+
+    <section class="recompensas-bloque">
+      <h2 class="recompensas-titulo">PREMIOS</h2>
+      <div class="premios__grid">
+        @for (premio of premios; track premio.titulo) {
+          <div class="premio-card">
+            <span class="premio-card__icono">{{ premio.icono }}</span>
+            <span class="premio-card__titulo">{{ premio.titulo }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="recompensas-bloque">
+      <h2 class="recompensas-titulo">TU PROGRESO</h2>
+      <div class="progreso">
+        <span class="progreso__nivel">Nivel {{ nivelActual }}</span>
+        <div class="progreso__barra">
+          <div class="progreso__barra-relleno" [style.width.%]="porcentajeProgreso"></div>
+        </div>
+        @if (esNivelMaximo) {
+          <span class="progreso__texto">¡Nivel maximo alcanzado! 🎉</span>
+        } @else {
+          <span class="progreso__texto">{{ progresoPuntos }} / {{ metaPuntos }} pts para el siguiente nivel</span>
+        }
+      </div>
+    </section>
+  </main>
+</div>

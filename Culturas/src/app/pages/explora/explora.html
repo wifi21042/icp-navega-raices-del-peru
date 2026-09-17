@@ -1,0 +1,89 @@
+<div class="explora-pagina">
+  <header class="explora-header">
+    <a routerLink="/" class="explora-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+    <a routerLink="/" class="explora-volver">← Volver al inicio</a>
+  </header>
+
+  <main class="explora-contenido">
+    <section class="explora-resumen">
+      <h1>🧭 Explora</h1>
+      <p>Recorre las 3 regiones del Peru y descubre sus maravillas. Toca una tarjeta para leer más.</p>
+    </section>
+
+    <div class="explora-tabs">
+      @for (region of regiones; track region.id) {
+        <button
+          class="explora-tabs__boton"
+          [class.explora-tabs__boton--activo]="tabActiva() === region.id"
+          (click)="cambiarTab(region.id)"
+        >
+          {{ region.icono }} {{ region.titulo }}
+        </button>
+      }
+    </div>
+
+    @if (regionActiva(); as region) {
+      <section class="region-intro">
+        <div class="region-intro__foto">
+          <img class="region-intro__imagen" [src]="region.imagen" [alt]="region.titulo" />
+          <div class="region-intro__degradado"></div>
+          <div class="region-intro__titulo">
+            <h2>{{ region.icono }} {{ region.titulo }}</h2>
+            <span class="region-intro__maravilla">{{ region.maravilla }}</span>
+          </div>
+        </div>
+        <div class="region-intro__cuerpo">
+          <p class="region-intro__resumen">{{ region.resumen }}</p>
+          <p class="region-intro__texto">{{ region.contenido }}</p>
+        </div>
+      </section>
+    }
+
+    <div class="destinos">
+      @for (destino of destinosDeTab(); track destino.id) {
+        <article class="destino-card">
+          <button class="destino-card__cabecera" (click)="abrirDestino(destino)">
+            <span class="destino-card__icono">{{ destino.icono }}</span>
+            <img
+              class="destino-card__imagen"
+              [src]="destino.imagen"
+              [alt]="destino.titulo"
+            />
+            <div class="destino-card__info">
+              <div class="destino-card__titulos">
+                <strong>{{ destino.titulo }}</strong>
+                <span>{{ destino.resumen }}</span>
+              </div>
+              <span class="destino-card__flecha">▼</span>
+            </div>
+          </button>
+        </article>
+      }
+    </div>
+
+    <p class="explora-ayuda">
+      🏆 Recorrer estas regiones te ayuda a completar los retos "Conoce Machu Picchu", "Recorre la costa del Peru" y
+      "Explora la selva amazonica" en <a routerLink="/retos">Retos</a>.
+    </p>
+  </main>
+
+  @if (destinoAbierto(); as destino) {
+    <div class="destino-fondo" (click)="cerrarDestino()">
+      <div class="destino-modal" (click)="$event.stopPropagation()">
+        <button class="destino-modal__cerrar" (click)="cerrarDestino()">✕</button>
+        <img class="destino-modal__imagen" [src]="destino.imagen" [alt]="destino.titulo" />
+        <div class="destino-modal__cuerpo">
+          <h2>{{ destino.icono }} {{ destino.titulo }}</h2>
+          <p class="destino-modal__resumen">{{ destino.resumen }}</p>
+          <p class="destino-modal__texto">{{ destino.contenido }}</p>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,128 @@
+<div class="personalizar-pagina">
+  <header class="personalizar-header">
+    <div class="personalizar-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </div>
+
+    @if (auth.usuarioActual()?.personaje_completo) {
+      <a routerLink="/" class="personalizar-volver">← Volver al inicio</a>
+    } @else {
+      <button type="button" class="personalizar-volver" (click)="cerrarSesion()">🚪 Cerrar sesion</button>
+    }
+  </header>
+
+  <div class="personalizar-contenido">
+  <div class="personalizar-tarjeta">
+    <div class="personalizar-panel">
+      <h1>Personaliza tu personaje</h1>
+      <p class="subtitulo">¡Tu lo haces unico!</p>
+
+      <section class="seccion">
+        <h2>Elige tu avatar</h2>
+        <div class="fila-avatares">
+          <button class="flecha" (click)="avatarAnterior()" aria-label="Avatar anterior">‹</button>
+
+          @for (avatar of avatares; track avatar.id; let i = $index) {
+            <button
+              class="opcion-avatar"
+              [class.seleccionado]="i === indiceAvatar()"
+              (click)="seleccionarAvatar(i)"
+            >
+              @if (imagenFallo(claveImagenAvatar(avatar))) {
+                {{ avatar.emoji }}
+              } @else {
+                <img class="opcion-avatar__img" [src]="imagenParaAvatar(avatar)" alt="" (error)="marcarImagenFallida(claveImagenAvatar(avatar))" />
+              }
+            </button>
+          }
+
+          <button class="flecha" (click)="avatarSiguiente()" aria-label="Siguiente avatar">›</button>
+        </div>
+      </section>
+
+      <section class="seccion">
+        <h2>Peinados</h2>
+        <div class="fila-opciones">
+          @for (peinado of peinados; track peinado.id) {
+            <button
+              class="opcion-circulo"
+              [class.seleccionado]="peinado.id === peinadoSeleccionado()"
+              (click)="seleccionarPeinado(peinado.id)"
+            >
+              @if (imagenFallo(peinado.id)) {
+                {{ peinado.icono }}
+              } @else {
+                <img class="opcion-circulo__img" [src]="peinado.imagen" alt="" (error)="marcarImagenFallida(peinado.id)" />
+              }
+            </button>
+          }
+        </div>
+      </section>
+
+      <section class="seccion">
+        <h2>Tono de piel</h2>
+        <div class="fila-opciones">
+          @for (tono of tonosPiel; track tono) {
+            <button
+              class="opcion-tono"
+              [class.seleccionado]="tono === tonoSeleccionado()"
+              [style.background]="tono"
+              (click)="seleccionarTono(tono)"
+            ></button>
+          }
+        </div>
+      </section>
+
+      <section class="seccion">
+        <h2>Ropa</h2>
+        <div class="fila-opciones">
+          @for (ropa of ropas; track ropa.id) {
+            <button
+              class="opcion-ropa"
+              [class.seleccionado]="ropa.id === ropaSeleccionada()"
+              [style.background]="ropa.color"
+              [attr.aria-label]="ropa.etiqueta"
+              [title]="ropa.etiqueta"
+            ></button>
+          }
+        </div>
+      </section>
+
+      @if (error()) {
+        <p class="error">⚠️ {{ error() }}</p>
+      }
+
+      <div class="fila-nombre">
+        <input
+          type="text"
+          [value]="nombrePersonaje()"
+          (input)="onNombreChange($any($event.target).value)"
+          placeholder="Escribe tu nombre..."
+          maxlength="30"
+        />
+        <button class="boton-listo" (click)="listo()" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Listo' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="personalizar-vista-previa">
+      <div class="tarjeta-preview" [style.borderColor]="ropaActual.color">
+        <div class="circulo-piel">
+          @if (imagenFallo(claveImagenAvatar(avatarActual))) {
+            <span class="emoji-avatar">{{ avatarActual.emoji }}</span>
+          } @else {
+            <img class="imagen-avatar" [src]="imagenAvatarActual" alt="" (error)="marcarImagenFallida(claveImagenAvatar(avatarActual))" />
+          }
+        </div>
+        <div class="etiqueta-ropa" [style.background]="ropaActual.color">{{ ropaActual.etiqueta }}</div>
+        <p class="nombre-preview">{{ nombrePersonaje() || 'Tu personaje' }}</p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

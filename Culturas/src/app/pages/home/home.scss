@@ -1,0 +1,785 @@
+:host {
+  display: block;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #22321f;
+  background: #faf6ec;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+:host, :host * {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+/* ---------- Avisos discretos ---------- */
+.avisos-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 24px 0;
+}
+
+.aviso-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff6e3;
+  border: 1.5px solid #f4b942;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  color: #6b6252;
+}
+
+.aviso-item__cerrar {
+  background: none;
+  border: none;
+  color: #6b6252;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 2px 6px;
+}
+
+.aviso-item__cerrar:hover {
+  color: #333;
+}
+
+.btn--outline {
+  background: transparent;
+  border: 2px solid #f4b942;
+  color: #f4b942;
+}
+
+.btn--dorado {
+  background: #f4b942;
+  color: #1a4d2e;
+}
+
+.btn--verde {
+  background: #2f6b3a;
+  color: #fff;
+}
+
+.btn--grande {
+  padding: 14px 26px;
+  font-size: 1.05rem;
+}
+
+.btn--ancho {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.btn--jugar {
+  background: #2f6b3a;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+.btn--morado { background: #6c3fa1; }
+.btn--naranja { background: #d9722c; }
+.btn--azul { background: #2a6fb5; }
+
+/* ---------- Header ---------- */
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: #1a4d2e;
+  color: #fff;
+  padding: 16px 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  flex-wrap: wrap;
+}
+
+.header__acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__hamburguesa {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.header__hamburguesa span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 999px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.header__hamburguesa--abierto span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.header__hamburguesa--abierto span:nth-child(2) {
+  opacity: 0;
+}
+
+.header__hamburguesa--abierto span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.header__marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__escudo {
+  width: 56px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.header__texto-marca {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.header__icp {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.header__subtitulo {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #f4b942;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.header__nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.header__nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.header__nav a.activo {
+  background: #f4b942;
+  color: #1a4d2e;
+}
+
+.header__derecha {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header__monedas {
+  background: rgba(244, 185, 66, 0.9);
+  color: #1a4d2e;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 7px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.icono-buscar {
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.icono-buscar:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.header__comunidad {
+  position: relative;
+}
+
+.header__badge {
+  position: absolute;
+  top: -8px;
+  right: -14px;
+  background: #c0392b;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.perfil-menu {
+  position: relative;
+}
+
+.perfil-usuario {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.perfil-usuario:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.perfil-usuario__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f4b942;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.perfil-usuario__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.perfil-usuario__nombre {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.perfil-usuario__flecha {
+  color: #fff;
+  font-size: 0.65rem;
+  opacity: 0.85;
+}
+
+.perfil-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  min-width: 230px;
+  z-index: 20;
+}
+
+.perfil-dropdown__item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #1a4d2e;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.perfil-dropdown__item:hover {
+  background: #eaf4ea;
+}
+
+.perfil-dropdown__item--salir {
+  color: #c0392b;
+  border-top: 1px solid #eee;
+  margin-top: 4px;
+  padding-top: 12px;
+}
+
+.perfil-dropdown__item--salir:hover {
+  background: #fceceb;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  background: linear-gradient(180deg, #eaf4ea 0%, #faf6ec 100%);
+}
+
+.hero__imagen {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0;
+}
+
+.hero__boton {
+  margin-top: -28px;
+  z-index: 1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Juegos destacados ---------- */
+.juegos {
+  padding: 32px;
+}
+
+.juegos__cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.juegos__cabecera h2 {
+  font-size: 1.2rem;
+}
+
+.ver-todos {
+  color: #2f6b3a;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.juegos__lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.juego-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.juego-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.juego-card__cuerpo {
+  padding: 14px;
+}
+
+.juego-card__cuerpo h3 {
+  font-size: 1rem;
+  margin: 0 0 6px;
+}
+
+.juego-card__cuerpo p {
+  font-size: 0.85rem;
+  color: #5a6b55;
+  margin: 0 0 14px;
+  min-height: 40px;
+}
+
+.juego-card__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.juego-card__puntos {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #c8934a;
+}
+
+.juego-card--bloqueado {
+  opacity: 0.85;
+}
+
+.juego-card__imagen-envoltorio {
+  position: relative;
+}
+
+.juego-card--bloqueado .juego-card__imagen-envoltorio img {
+  filter: grayscale(0.6) brightness(0.7);
+}
+
+.juego-card__candado {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-weight: 800;
+}
+
+.juego-card__candado span:first-child {
+  font-size: 1.6rem;
+}
+
+.juego-card__candado span:last-child {
+  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.btn--bloqueado {
+  background: #d8d4c6;
+  color: #7a7566;
+  cursor: default;
+}
+
+.btn--bloqueado:hover {
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Que puedes hacer + ranking ---------- */
+.contenido-inferior {
+  display: flex;
+  gap: 24px;
+  padding: 0 32px 40px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.que-puedes-hacer {
+  flex: 2 1 520px;
+}
+
+.que-puedes-hacer h2 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.que-puedes-hacer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.funcion-card {
+  display: block;
+  border-radius: 12px;
+  padding: 18px;
+  background: #eaf4ea;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+a.funcion-card:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  cursor: pointer;
+}
+
+.funcion-card--morado { background: #efe6f7; }
+.funcion-card--dorado { background: #fbf1d9; }
+.funcion-card--rosado { background: #fbe6ea; }
+
+.funcion-card__icono {
+  font-size: 1.4rem;
+}
+
+.funcion-card h3 {
+  margin: 10px 0 6px;
+  font-size: 1rem;
+}
+
+.funcion-card p {
+  font-size: 0.85rem;
+  color: #5a6b55;
+  margin: 0;
+}
+
+.lado-derecho {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.ranking {
+  background: #fdf6e3;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.ranking h2 {
+  font-size: 1rem;
+  margin: 0 0 14px;
+}
+
+.ranking__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ranking__lista li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #efe2b8;
+}
+
+.ranking__puesto {
+  font-weight: 800;
+  width: 18px;
+}
+
+.ranking__lista img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ranking__avatar-emoji {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: #eaf4ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.ranking__nombre {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranking__puntos {
+  font-size: 0.85rem;
+  color: #c8934a;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ranking__vacio {
+  color: #8a7a5a;
+  font-size: 0.85rem;
+  margin: 0 0 14px;
+}
+
+/* ---------- Footer ---------- */
+.pie {
+  background: #1a4d2e;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 32px;
+  font-size: 0.85rem;
+}
+
+.pie__marca strong {
+  display: block;
+}
+
+.pie__marca p {
+  margin: 4px 0 0;
+  opacity: 0.8;
+}
+
+.pie__valores {
+  display: flex;
+  gap: 16px;
+}
+
+.pie__redes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Ajustes para tablet y celular ----------
+   Por debajo de 1024px (tablets y celulares) el menu de arriba (Inicio,
+   Juegos, Retos, etc.) se esconde detras de un boton de "hamburguesa" en
+   vez de amontonarse en varias filas, que se veia mal en pantallas
+   angostas. */
+@media (max-width: 1024px) {
+  .header {
+    padding: 14px 20px;
+  }
+
+  .header__hamburguesa {
+    display: flex;
+  }
+
+  .header__derecha {
+    gap: 10px;
+  }
+
+  .header__nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    background: #1a4d2e;
+    padding: 10px 16px 18px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    z-index: 30;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .header__nav--abierto {
+    display: flex;
+  }
+
+  .header__nav a {
+    width: 100%;
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+
+  .header__nav-fondo {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 25;
+  }
+}
+
+/* ---------- Ajustes para pantallas pequenas (celular) ---------- */
+@media (max-width: 700px) {
+  .header,
+  .hero,
+  .juegos,
+  .contenido-inferior,
+  .pie {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .header__texto-marca {
+    max-width: 150px;
+  }
+
+  .header__icp {
+    font-size: 1.3rem;
+  }
+
+  .header__subtitulo {
+    font-size: 0.6rem;
+  }
+
+  .perfil-usuario__nombre {
+    display: none;
+  }
+
+  .juegos__cabecera {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pie {
+    justify-content: center;
+    text-align: center;
+  }
+}

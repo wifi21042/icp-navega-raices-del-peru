@@ -1,0 +1,10 @@
+# Solo nos interesa versionar Cultura (backend), Culturas (frontend), y
+# la configuracion de despliegue (Actions + Render).
+# Todo lo demas en htdocs (XAMPP, phpMyAdmin, zips viejos, etc.) se ignora.
+/*
+!/Cultura/
+!/Culturas/
+!/.github/
+!/.gitignore
+!/README.md
+!/render.yaml

@@ -1,0 +1,466 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.minijuego-pagina {
+  --color-tema: #2f6b3a;
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.minijuego-velo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 30, 25, 0.35) 0%, rgba(15, 25, 20, 0.72) 65%, rgba(10, 18, 14, 0.85) 100%);
+  backdrop-filter: blur(1px);
+}
+
+.minijuego-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+  flex-wrap: wrap;
+}
+
+.minijuego-salir {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 9px 16px;
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+
+.minijuego-salir:hover {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.minijuego-header__usuario {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #fff;
+  padding: 5px 16px 5px 5px;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.minijuego-header__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #eaf4ea);
+  border: 2px solid var(--color-tema);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.minijuego-header__datos {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.minijuego-header__datos strong {
+  color: #1a4d2e;
+  font-size: 0.85rem;
+}
+
+.minijuego-header__datos span {
+  color: #c8934a;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.minijuego-contenido {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 20px 55px;
+}
+
+.minijuego-mensaje {
+  color: #fff;
+  font-weight: 700;
+  margin-top: 60px;
+  text-align: center;
+}
+
+.minijuego-mensaje--error {
+  color: #ffd7d2;
+}
+
+.minijuego-tarjeta-titulo {
+  text-align: center;
+  color: #fff;
+  margin-top: 4px;
+}
+
+.minijuego-tarjeta-titulo h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: 2px;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+}
+
+.minijuego-subtitulo {
+  display: inline-block;
+  background: var(--color-tema);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 4px 16px;
+  border-radius: 999px;
+  margin: 8px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.minijuego-nombre {
+  display: block;
+  font-size: 1.1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.minijuego-rondas {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.minijuego-ronda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 18px 20px;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.minijuego-ronda:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.minijuego-ronda:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.minijuego-ronda--bloqueada {
+  filter: grayscale(0.6);
+}
+
+.minijuego-ronda__etiqueta {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #1a4d2e;
+}
+
+.minijuego-ronda__estrellas {
+  display: flex;
+  gap: 6px;
+}
+
+.minijuego-ronda__estrellas .estrella {
+  font-size: 1.3rem;
+}
+
+.minijuego-ronda__puntos {
+  color: #c8934a;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.minijuego-ronda__candado {
+  color: #8a7a5a;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.minijuego-tarjeta,
+.minijuego-resultado {
+  position: relative;
+  background: #fff;
+  border-radius: 22px;
+  padding: 26px 24px 22px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.minijuego-tarjeta__acento {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--color-tema), #f4b942);
+}
+
+.minijuego-progreso-pasos {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.minijuego-paso {
+  width: 26px;
+  height: 5px;
+  border-radius: 999px;
+  background: #eaf0e6;
+  transition: background 0.2s ease;
+}
+
+.minijuego-paso--hecho {
+  background: var(--color-tema);
+}
+
+.minijuego-paso--actual {
+  background: #f4b942;
+}
+
+.minijuego-progreso-texto {
+  margin: 0 0 8px;
+  color: #8a7a5a;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-align: center;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.minijuego-pregunta {
+  margin: 0 0 20px;
+  color: #1a4d2e;
+  font-size: 1.1rem;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.minijuego-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.minijuego-opcion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background: #f4f8f2;
+  color: #1a4d2e;
+  font-weight: 700;
+  font-size: 0.94rem;
+  text-align: left;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.minijuego-opcion__letra {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-tema);
+  font-weight: 800;
+  font-size: 0.85rem;
+  box-shadow: inset 0 0 0 2px var(--color-tema);
+}
+
+.minijuego-opcion__texto {
+  flex: 1;
+}
+
+.minijuego-opcion:hover:not(:disabled) {
+  border-color: var(--color-tema);
+  transform: translateY(-2px);
+}
+
+.minijuego-opcion:disabled {
+  cursor: default;
+}
+
+.minijuego-opcion--correcta {
+  background: #2f6b3a;
+  color: #fff;
+}
+
+.minijuego-opcion--correcta .minijuego-opcion__letra {
+  background: #fff;
+  color: #2f6b3a;
+  box-shadow: none;
+}
+
+.minijuego-opcion--incorrecta {
+  background: #e57368;
+  color: #fff;
+}
+
+.minijuego-opcion--incorrecta .minijuego-opcion__letra {
+  background: #fff;
+  color: #e57368;
+  box-shadow: none;
+}
+
+.minijuego-siguiente {
+  margin-top: 18px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f4b942, #e0a428);
+  color: #1a4d2e;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(224, 164, 40, 0.4);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.minijuego-siguiente:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.minijuego-siguiente:disabled {
+  opacity: 0.7;
+  cursor: default;
+  transform: none;
+}
+
+.minijuego-estrellas {
+  display: flex;
+  gap: 12px;
+}
+
+.estrella {
+  font-size: 2rem;
+  filter: grayscale(1) opacity(0.45);
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.estrella--llena {
+  filter: none;
+  transform: scale(1.15);
+  text-shadow: 0 0 14px rgba(244, 185, 66, 0.9);
+}
+
+.minijuego-estrellas--grande .estrella {
+  font-size: 2.8rem;
+}
+
+.minijuego-resultado {
+  text-align: center;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.minijuego-resultado h2 {
+  margin: 8px 0 6px;
+  color: #1a4d2e;
+}
+
+.minijuego-resultado__aciertos {
+  color: #6b6252;
+  font-weight: 600;
+  margin: 14px 0 4px;
+}
+
+.minijuego-premio {
+  color: #c8934a;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin: 6px 0 0;
+}
+
+.minijuego-premio--sin-cambio {
+  color: #8a7a5a;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.minijuego-resultado__botones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.minijuego-boton-primario,
+.minijuego-boton-secundario {
+  padding: 13px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.minijuego-boton-primario:hover,
+.minijuego-boton-secundario:hover {
+  transform: translateY(-2px);
+}
+
+.minijuego-boton-primario {
+  background: linear-gradient(135deg, var(--color-tema), #163a20);
+  color: #fff;
+}
+
+.minijuego-boton-secundario {
+  background: #fdf6e3;
+  color: #1a4d2e;
+}
+
+@media (max-width: 480px) {
+  .minijuego-tarjeta,
+  .minijuego-resultado {
+    padding: 22px 18px 18px;
+  }
+
+  .minijuego-header {
+    padding: 14px 16px;
+  }
+}

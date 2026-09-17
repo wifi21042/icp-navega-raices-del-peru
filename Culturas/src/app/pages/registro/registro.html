@@ -1,0 +1,75 @@
+<div class="auth-pagina">
+  <div class="auth-panel">
+    <img class="auth-panel__imagen" src="/img/danza.jpeg" alt="" />
+    <div class="auth-panel__capa">
+      <a routerLink="/" class="auth-marca">
+        <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+        <span>
+          ICP
+          <small>NAVEGA POR LAS RAICES DEL PERU</small>
+        </span>
+      </a>
+
+      <div class="auth-panel__texto">
+        <h2>¡Unete a la aventura!</h2>
+        <p>Crea tu cuenta, personaliza tu personaje y descubre la riqueza cultural del Peru jugando.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-formulario">
+    <a routerLink="/" class="auth-marca auth-marca--movil">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+
+    <div class="auth-tarjeta">
+      <h1>Crear cuenta</h1>
+
+      @if (exito()) {
+        <p class="exito">
+          🎉 ¡Ya casi, {{ name() }}! Te mandamos un correo a {{ email() }}. Abre el enlace ahi
+          para confirmar tu cuenta y crear tu contrasena.
+        </p>
+        <a routerLink="/login" class="btn-enlace">Ir a iniciar sesion</a>
+      } @else {
+        <label>
+          <span class="label-texto">🧑 Nombre</span>
+          <input
+            type="text"
+            [value]="name()"
+            (input)="onNameChange($any($event.target).value)"
+            placeholder="Tu nombre"
+          />
+        </label>
+
+        <label>
+          <span class="label-texto">✉️ Correo</span>
+          <input
+            type="email"
+            autocomplete="email"
+            [value]="email()"
+            (input)="onEmailChange($any($event.target).value)"
+            placeholder="tucorreo@ejemplo.com"
+          />
+        </label>
+
+        @if (error()) {
+          <p class="error">⚠️ {{ error() }}</p>
+        }
+
+        <button (click)="registrar()" [disabled]="cargando()">
+          {{ cargando() ? 'Creando cuenta...' : '▶ Registrarse' }}
+        </button>
+
+        <div class="separador-o"><span>o</span></div>
+        <div id="boton-google-registro" class="boton-google-contenedor"></div>
+
+        <p class="ayuda">¿Ya tienes cuenta? <a routerLink="/login">Inicia sesion</a></p>
+      }
+    </div>
+  </div>
+</div>

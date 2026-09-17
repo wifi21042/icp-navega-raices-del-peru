@@ -1,0 +1,25 @@
+<div class="verificar-pagina">
+  <div class="verificar-tarjeta">
+    <a routerLink="/" class="verificar-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+
+    @if (cargando()) {
+      <p class="verificar-icono">⏳</p>
+      <p class="verificar-mensaje">Confirmando tu correo...</p>
+    } @else if (exito()) {
+      <p class="verificar-icono">✅</p>
+      <h1>¡Correo confirmado!</h1>
+      <p class="verificar-mensaje">Ahora falta crear tu contrasena. Te llevamos ahi en un momento...</p>
+    } @else {
+      <p class="verificar-icono">⚠️</p>
+      <h1>No pudimos confirmar tu correo</h1>
+      <p class="verificar-mensaje">{{ error() }}</p>
+      <a routerLink="/login" class="btn-verde">Volver a iniciar sesion</a>
+    }
+  </div>
+</div>

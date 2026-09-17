@@ -1,0 +1,361 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.personalizar-pagina {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #eaf4ea 0%, #faf6ec 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.personalizar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #1a4d2e, #2f6b3a);
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.personalizar-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.personalizar-marca img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.personalizar-marca span {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.1;
+}
+
+.personalizar-marca small {
+  display: block;
+  color: #f4b942;
+  font-weight: 700;
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+}
+
+.personalizar-volver {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.personalizar-volver:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.personalizar-contenido {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.personalizar-tarjeta {
+  display: flex;
+  gap: 32px;
+  max-width: 1180px;
+  width: 100%;
+  background: #fdf6e3;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 16px 40px rgba(26, 77, 46, 0.15);
+  flex-wrap: wrap;
+}
+
+.personalizar-panel {
+  flex: 1 1 380px;
+  min-width: 0;
+}
+
+.personalizar-panel h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  color: #1a4d2e;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #c8934a;
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 6px 0 26px;
+}
+
+.seccion {
+  margin-bottom: 24px;
+}
+
+.seccion h2 {
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  color: #7a6a4a;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 14px;
+}
+
+.fila-avatares {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.flecha {
+  background: none;
+  border: none;
+  font-size: 1.9rem;
+  color: #c8934a;
+  cursor: pointer;
+  padding: 4px 10px;
+}
+
+.opcion-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: #fff;
+  font-size: 2.1rem;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.opcion-avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.opcion-avatar:hover {
+  transform: translateY(-2px);
+}
+
+.opcion-avatar.seleccionado {
+  border-color: #2f6b3a;
+}
+
+.fila-opciones {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.opcion-circulo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.opcion-circulo__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.opcion-circulo:hover {
+  transform: translateY(-2px);
+}
+
+.opcion-circulo.seleccionado {
+  border-color: #2f6b3a;
+}
+
+.opcion-tono {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.opcion-tono:hover {
+  transform: translateY(-2px);
+}
+
+.opcion-tono.seleccionado {
+  border-color: #1a4d2e;
+}
+
+.opcion-ropa {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.opcion-ropa:hover {
+  transform: translateY(-2px);
+}
+
+.opcion-ropa.seleccionado {
+  border-color: #1a4d2e;
+}
+
+.error {
+  color: #c0392b;
+  background: #fceceb;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.fila-nombre {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.fila-nombre input {
+  flex: 1;
+  padding: 13px 18px;
+  border: 1.5px solid #e0ddd2;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  background: #fff;
+}
+
+.fila-nombre input:focus {
+  outline: none;
+  border-color: #f4b942;
+}
+
+.boton-listo {
+  padding: 14px 28px;
+  font-size: 1.05rem;
+  background: linear-gradient(135deg, #2f6b3a, #1a4d2e);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(47, 107, 58, 0.35);
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.boton-listo:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.boton-listo:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- Vista previa ---------- */
+.personalizar-vista-previa {
+  flex: 1 1 200px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tarjeta-preview {
+  width: 100%;
+  max-width: 640px;
+  background: linear-gradient(180deg, #dff0e0 0%, #cfe8d4 100%);
+  border-radius: 18px;
+  border: 4px solid #2f6b3a;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.circulo-piel {
+  width: 540px;
+  height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emoji-avatar {
+  font-size: 4.8rem;
+}
+
+.imagen-avatar {
+  width: 98%;
+  height: 98%;
+  object-fit: contain;
+  border-radius: 0;
+  display: block;
+}
+
+.etiqueta-ropa {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+.nombre-preview {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1a4d2e;
+  text-align: center;
+  word-break: break-word;
+}
+
+@media (max-width: 620px) {
+  .personalizar-tarjeta {
+    flex-direction: column-reverse;
+  }
+}

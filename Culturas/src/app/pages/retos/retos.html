@@ -1,0 +1,140 @@
+<div class="retos-pagina">
+  <header class="retos-header">
+    <a routerLink="/" class="retos-marca">
+      <img src="/img/escudo.jpg" alt="Escudo del colegio" />
+      <span>
+        ICP
+        <small>NAVEGA POR LAS RAICES DEL PERU</small>
+      </span>
+    </a>
+    <a routerLink="/" class="retos-volver">← Volver al inicio</a>
+  </header>
+
+  <main class="retos-contenido">
+    <section class="retos-resumen">
+      <h1>🏆 Retos</h1>
+      <p>Completa desafios, gana puntos y desbloquea accesorios para tu personaje.</p>
+      <span class="retos-puntos">🏅 Nivel {{ nivelActual }}</span>
+      <span class="retos-puntos">⭐ {{ puntosActuales }} pts</span>
+    </section>
+
+    @if (error()) {
+      <p class="error">⚠️ {{ error() }}</p>
+    }
+
+    @if (mensajeExito()) {
+      <div class="exito">
+        ✅ {{ mensajeExito() }}
+        <a routerLink="/accesorios">Ve tus premios →</a>
+        <button type="button" class="exito__cerrar" (click)="cerrarMensajeExito()">✕</button>
+      </div>
+    }
+
+    @if (cargando()) {
+      <p class="cargando">Cargando retos...</p>
+    } @else {
+      <div class="retos-grid">
+        @for (reto of retos(); track reto.id) {
+          <div
+            class="reto-card"
+            [class.reto-card--completado]="reto.completado"
+            [class.reto-card--especial]="reto.especial"
+          >
+            @if (reto.especial) {
+              <span class="reto-card__etiqueta-especial">⭐ Especial · recompensa unica</span>
+            }
+            <div class="reto-card__cabecera">
+              <strong>{{ reto.titulo }}</strong>
+              <span class="reto-card__puntos">+{{ reto.puntos }} pts</span>
+            </div>
+            <p class="reto-card__descripcion">{{ reto.descripcion }}</p>
+
+            @if (reto.especial && !reto.completado) {
+              <span class="reto-card__tiempo" [class.reto-card__tiempo--vencido]="!reto.activo">
+                {{ reto.activo ? '⏳ Disponible por ' + horasRestantes(reto) + 'h más' : '😴 Se activa cada miércoles en la noche' }}
+              </span>
+            }
+
+            @if (reto.completado) {
+              <span class="reto-card__estado">✅ Completado</span>
+            } @else if (!reto.activo) {
+              <span class="reto-card__estado reto-card__estado--vencido">😴 Vuelve el próximo miércoles</span>
+            } @else {
+              <button
+                class="reto-card__boton"
+                [disabled]="idProcesando() === reto.id"
+                (click)="completar(reto)"
+              >
+                {{ idProcesando() === reto.id ? 'Guardando...' : etiquetaBoton(reto) }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    <p class="retos-ayuda">
+      🎒 Los puntos que ganes aqui sirven para desbloquear premios para tu personaje en la seccion
+      <a routerLink="/accesorios">Premios</a>.
+    </p>
+  </main>
+
+  @if (quizReto(); as reto) {
+    <div class="quiz-fondo" (click)="cerrarQuiz()">
+      <div class="quiz-tarjeta" (click)="$event.stopPropagation()">
+        <button class="quiz-cerrar" (click)="cerrarQuiz()">✕</button>
+
+        @if (quizCargando()) {
+          <p class="quiz-mensaje">Cargando quiz...</p>
+        } @else if (quizError() && !quizResultado()) {
+          <p class="quiz-mensaje quiz-mensaje--error">⚠️ {{ quizError() }}</p>
+        } @else if (quizResultado(); as resultado) {
+          <div class="quiz-resultado">
+            <h2>{{ resultado.aprobado ? '¡Aprobado! 🎉' : 'Casi lo logras 💪' }}</h2>
+            <p class="quiz-resultado__aciertos">{{ resultado.correctas }} de {{ resultado.total }} respuestas correctas</p>
+            @if (resultado.aprobado) {
+              <p class="quiz-premio">✅ Reto completado, recompensa activada.</p>
+              <div class="quiz-resultado__botones">
+                <a routerLink="/accesorios" class="quiz-boton-secundario" (click)="cerrarQuiz()">🎁 Ver mis premios</a>
+                <button class="quiz-boton-primario" (click)="cerrarQuiz()">Listo</button>
+              </div>
+            } @else {
+              <p class="quiz-premio quiz-premio--sin-cambio">
+                Necesitas al menos {{ quizMinimo() }} de {{ quizPreguntas().length }} para pasar. ¡Intenta de nuevo!
+              </p>
+              <div class="quiz-resultado__botones">
+                <button class="quiz-boton-secundario" (click)="quizIntentarDeNuevo()">🔁 Intentar de nuevo</button>
+                <button class="quiz-boton-primario" (click)="cerrarQuiz()">Salir</button>
+              </div>
+            }
+          </div>
+        } @else if (quizPreguntaActual(); as pregunta) {
+          <p class="quiz-titulo">🎮 {{ reto.titulo }}</p>
+          <p class="quiz-progreso-texto">Pregunta {{ quizIndice() + 1 }} de {{ quizPreguntas().length }}</p>
+          <h2 class="quiz-pregunta">{{ pregunta.pregunta }}</h2>
+
+          <div class="quiz-opciones">
+            @for (opcion of pregunta.opciones; track $index) {
+              <button
+                class="quiz-opcion"
+                [class.quiz-opcion--correcta]="quizRespuestaSeleccionada() !== null && $index === pregunta.correcta"
+                [class.quiz-opcion--incorrecta]="quizRespuestaSeleccionada() === $index && $index !== pregunta.correcta"
+                [disabled]="quizRespuestaSeleccionada() !== null"
+                (click)="quizElegir($index)"
+              >
+                <span class="quiz-opcion__letra">{{ quizLetra($index) }}</span>
+                <span>{{ opcion }}</span>
+              </button>
+            }
+          </div>
+
+          @if (quizRespuestaSeleccionada() !== null) {
+            <button class="quiz-boton-primario" [disabled]="quizEnviando()" (click)="quizSiguiente()">
+              {{ quizEnviando() ? 'Guardando...' : quizEsUltimaPregunta() ? '🏁 Ver resultado' : 'Siguiente pregunta →' }}
+            </button>
+          }
+        }
+      </div>
+    </div>
+  }
+</div>

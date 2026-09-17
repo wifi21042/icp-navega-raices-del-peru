@@ -1,0 +1,326 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.recompensas-pagina {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #eaf4ea 0%, #faf6ec 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.recompensas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #1a4d2e, #2f6b3a);
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.recompensas-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.recompensas-marca img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.recompensas-marca span {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.1;
+}
+
+.recompensas-marca small {
+  display: block;
+  color: #f4b942;
+  font-weight: 700;
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+}
+
+.recompensas-volver {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.recompensas-volver:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.recompensas-contenido {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+
+.recompensas-resumen {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px 26px;
+  margin-bottom: 28px;
+  box-shadow: 0 12px 30px rgba(26, 77, 46, 0.1);
+}
+
+.recompensas-resumen h1 {
+  margin: 0 0 6px;
+  color: #1a4d2e;
+  font-size: 1.4rem;
+}
+
+.recompensas-resumen p {
+  margin: 0;
+  color: #8a7a5a;
+  font-weight: 600;
+}
+
+.recompensas-bloque {
+  margin-bottom: 28px;
+}
+
+.recompensas-titulo {
+  margin: 0 0 14px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #6b7d3e;
+}
+
+.logros__cargando {
+  color: #8a7a5a;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+// Las dos pestañas estilo Steam: "Mis logros" y "Logros globales".
+.logros__pestanas {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  border-bottom: 2px solid #e6ddc4;
+}
+
+.logros__pestana {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #8a7a5a;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.logros__pestana:hover {
+  color: #1a4d2e;
+}
+
+.logros__pestana--activa {
+  color: #1a4d2e;
+  border-bottom-color: #e8a63a;
+}
+
+.logros__conteo {
+  margin: 0 0 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a4d2e;
+}
+
+.logros__vacio {
+  color: #8a7a5a;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin: 0 0 14px;
+}
+
+.logros__subtitulo {
+  margin: 26px 0 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #8a7a5a;
+  text-transform: uppercase;
+}
+
+.logros__grid,
+.premios__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.logro-card,
+.premio-card {
+  background: #fdf6e3;
+  border-radius: 14px;
+  padding: 20px 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 8px 20px rgba(26, 77, 46, 0.08);
+}
+
+.logro-card__icono,
+.premio-card__icono {
+  font-size: 2rem;
+}
+
+.logro-card strong,
+.premio-card__titulo {
+  font-size: 0.95rem;
+  color: #1a4d2e;
+}
+
+.logro-card__descripcion {
+  font-size: 0.78rem;
+  color: #8a7a5a;
+  line-height: 1.4;
+}
+
+.logro-card__check {
+  color: #2f6b3a;
+  font-size: 0.85rem;
+  margin-left: 4px;
+}
+
+.logro-card__fecha {
+  font-size: 0.72rem;
+  color: #2f6b3a;
+  font-weight: 700;
+}
+
+// En "Mis logros", las tarjetas ya conseguidas resaltan con un borde
+// dorado, para que se note de una que ya son tuyas.
+.logro-card--conseguido {
+  background: #fffdf6;
+  box-shadow: 0 8px 20px rgba(232, 166, 58, 0.22);
+  border: 1.5px solid #f4d99a;
+}
+
+// El "badge" de rareza, estilo Steam: mientras menos jugadores lo tienen,
+// mas llamativo se ve (dorado para lo ultra raro, hasta gris para lo comun).
+.logro-card__rareza {
+  margin-top: 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  line-height: 1.5;
+}
+
+.logro-card__rareza--ultra_raro {
+  color: #8a5a00;
+  background: linear-gradient(135deg, #ffe9ab, #f4b942);
+}
+
+.logro-card__rareza--raro {
+  color: #5a3d8a;
+  background: #ece1fb;
+}
+
+.logro-card__rareza--medio {
+  color: #1a4d2e;
+  background: #dff0e0;
+}
+
+.logro-card__rareza--comun {
+  color: #6b6252;
+  background: #eee9df;
+}
+
+.logro-card--bloqueado {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.progreso {
+  background: #fdf6e3;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.progreso__nivel {
+  display: block;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #1a4d2e;
+  margin-bottom: 10px;
+}
+
+.progreso__barra {
+  height: 14px;
+  border-radius: 999px;
+  background: #eee4c8;
+  overflow: hidden;
+}
+
+.progreso__barra-relleno {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f4b942, #e8a63a);
+  transition: width 0.3s ease;
+}
+
+.progreso__texto {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #8a7a5a;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .logros__grid,
+  .premios__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .recompensas-header {
+    padding: 14px 18px;
+  }
+
+  .recompensas-contenido {
+    padding: 24px 14px 40px;
+  }
+
+  .recompensas-resumen {
+    padding: 18px 20px;
+  }
+
+  .logros__grid,
+  .premios__grid {
+    grid-template-columns: 1fr;
+  }
+}
