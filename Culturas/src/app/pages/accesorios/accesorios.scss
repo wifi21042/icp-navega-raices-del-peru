@@ -310,20 +310,22 @@
 // personaje. Los puntos van arriba (.puntos-actuales) y el nombre abajo
 // (.nombre-preview), como antes.
 .accesorios-centro {
-  width: 100%;
-  min-height: 120px;
-  // Cuando hay hartos accesorios elegidos, en vez de estirar la tarjeta
-  // entera hacia abajo (se veia horrible, todo en una sola columna), la
-  // caja se queda de un alto fijo y hace scroll para adentro.
-  max-height: 280px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  // Caja fija de 100x50px a pedido de Alex. Como ya no entran varios
+  // accesorios en fila con ese alto, se hace scroll horizontal adentro
+  // (nowrap) en vez de que se corten o se salgan del alto de 50px.
+  width: 100px;
+  height: 50px;
+  box-sizing: border-box;
+  background: #e6e6e6;
+  border-radius: 8px;
   display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 8px;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .accesorios-centro__vacio {
@@ -334,16 +336,17 @@
 }
 
 .accesorio-centro {
-  // 50px a pedido de Alex (100px seguia viendose grande).
-  width: 50px;
-  height: 50px;
+  // Reducido a 38px para que quepa dentro del alto de 50px de
+  // .accesorios-centro (con el padding de 4px arriba y abajo).
+  width: 38px;
+  height: 38px;
   flex: 0 0 auto;
-  border-radius: 10px;
+  border-radius: 8px;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   overflow: hidden;
 }
 
@@ -355,7 +358,7 @@
 }
 
 .accesorio-centro__emoji {
-  font-size: 3rem;
+  font-size: 1.4rem;
 }
 
 .nombre-preview {
