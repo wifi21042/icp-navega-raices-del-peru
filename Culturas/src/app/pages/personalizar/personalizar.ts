@@ -198,31 +198,47 @@ export class Personalizar {
   // (personaje + traje + tono de piel) viven en
   // public/img/personaje/ropa-puesta/<familia>-<idRopa>-<tono>.png.
   // Todavia no existen todas las combinaciones (falta niño entero y
-  // algunos tonos de niña), asi que si falta la foto exacta se usa el
-  // personaje "de siempre" (sin ropa puesta) como respaldo, y si esa
-  // tampoco carga, el emoji de siempre.
-  private rutaImagenConRopa(): string {
-    const tono = this.tonoSeleccionado().replace('#', '');
-    return `img/personaje/ropa-puesta/${this.avatarActual.familia}-${this.ropaActual.id}-${tono}.png`;
+  // algunos tonos de niña). Antes, si faltaba la foto exacta se caia
+  // directo al personaje "de siempre" sin ropa (se veia como que no
+  // habia pasado nada al elegir un traje). Ahora, en vez de eso, se
+  // prueba con la misma foto pero del tono de piel mas parecido (para
+  // que siempre se vea puesto el traje elegido, aunque sea con un tono
+  // de piel un poco distinto), y solo si NINGUN tono tiene esa foto
+  // recien ahi se cae al personaje sin ropa, y si esa tampoco carga, al
+  // emoji.
+  private ordenTonosPorCercania(tonoObjetivo: string): string[] {
+    const idxObjetivo = this.tonosPiel.indexOf(tonoObjetivo);
+    return this.tonosPiel
+      .filter((tono) => tono !== tonoObjetivo)
+      .sort(
+        (a, b) =>
+          Math.abs(this.tonosPiel.indexOf(a) - idxObjetivo) - Math.abs(this.tonosPiel.indexOf(b) - idxObjetivo)
+      );
   }
 
-  claveImagenConRopa(): string {
-    return `conropa_${this.avatarActual.id}_${this.ropaActual.id}_${this.tonoSeleccionado()}`;
+  private candidatosImagenConRopa(): { ruta: string; clave: string }[] {
+    const familia = this.avatarActual.familia;
+    const ropaId = this.ropaActual.id;
+    const tonoElegido = this.tonoSeleccionado();
+    const tonosAProbar = [tonoElegido, ...this.ordenTonosPorCercania(tonoElegido)];
+    return tonosAProbar.map((tono) => ({
+      ruta: `img/personaje/ropa-puesta/${familia}-${ropaId}-${tono.replace('#', '')}.png`,
+      clave: `conropa_${this.avatarActual.id}_${ropaId}_${tono}`,
+    }));
   }
 
   get imagenPersonajeActual(): string {
-    if (this.imagenFallo(this.claveImagenConRopa())) {
-      return this.imagenAvatarActual;
-    }
-    return this.rutaImagenConRopa();
+    const candidato = this.candidatosImagenConRopa().find((c) => !this.imagenFallo(c.clave));
+    return candidato ? candidato.ruta : this.imagenAvatarActual;
   }
 
-  // Si falla la foto con el traje puesto, primero se intenta el
-  // personaje "de siempre" (sin ropa); si esa tambien falla, recien ahi
-  // se marca la del avatar y se cae al emoji.
+  // Marca como fallada la primera candidata (tono) que todavia no se
+  // habia probado, para que el getter de arriba pase a la siguiente. Si
+  // ya se probaron todos los tonos, recien ahi cae al personaje generico.
   onErrorImagenPersonaje() {
-    if (!this.imagenFallo(this.claveImagenConRopa())) {
-      this.marcarImagenFallida(this.claveImagenConRopa());
+    const candidato = this.candidatosImagenConRopa().find((c) => !this.imagenFallo(c.clave));
+    if (candidato) {
+      this.marcarImagenFallida(candidato.clave);
       return;
     }
     this.marcarImagenFallida(this.claveImagenAvatar(this.avatarActual));

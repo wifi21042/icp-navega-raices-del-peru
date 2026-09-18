@@ -118,7 +118,7 @@
              imagenPersonajeActual / onErrorImagenPersonaje). -->
         <p class="nombre-preview">{{ nombrePersonaje() || 'Tu personaje' }}</p>
         <div class="circulo-piel" [style.backgroundImage]="'url(' + fondoActual.imagen + ')'">
-          @if (imagenFallo(claveImagenConRopa()) && imagenFallo(claveImagenAvatar(avatarActual))) {
+          @if (imagenFallo(claveImagenAvatar(avatarActual))) {
             <span class="emoji-avatar">{{ avatarActual.emoji }}</span>
           } @else {
             <img class="imagen-avatar" [src]="imagenPersonajeActual" alt="" (error)="onErrorImagenPersonaje()" />
