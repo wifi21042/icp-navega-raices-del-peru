@@ -18,8 +18,11 @@ interface OpcionPeinado {
 
 interface OpcionRopa {
   id: string;
-  color: string;
+  imagen: string;
   etiqueta: string;
+  // A que avatar (nina o nino) le corresponde este traje. Cada avatar
+  // solo muestra los suyos (ver ropasDisponibles).
+  familia: 'nina' | 'nino';
 }
 
 interface OpcionFondo {
@@ -61,11 +64,22 @@ export class Personalizar {
   // solo hasta el tono mas oscuro que si tiene una foto bien distinta.
   tonosPiel: string[] = ['#f5d3a8', '#e8b382', '#c98c53', '#a9673a'];
 
+  // Trajes tipicos de verdad (fotos), a pedido de Alex, en vez de los
+  // cuadrados de color de antes. Cada uno es solo de nina o solo de nino
+  // (ver ropasDisponibles): al elegir un avatar nino solo se muestran
+  // trajes de nino, y al reves.
   ropas: OpcionRopa[] = [
-    { id: 'poncho_morado', color: '#6c3fa1', etiqueta: 'Poncho morado' },
-    { id: 'poncho_rojo', color: '#c0392b', etiqueta: 'Poncho rojo' },
-    { id: 'chaleco_verde', color: '#2f6b3a', etiqueta: 'Chaleco verde' },
-    { id: 'poncho_negro', color: '#2b2b2b', etiqueta: 'Poncho negro' },
+    { id: 'costa_nina_1', imagen: 'img/personaje/ropa/costa-nina-1.jpeg', etiqueta: 'Traje de la Costa', familia: 'nina' },
+    { id: 'costa_nina_2', imagen: 'img/personaje/ropa/costa-nina-2.jpeg', etiqueta: 'Traje de la Costa 2', familia: 'nina' },
+    { id: 'costa_nina_3', imagen: 'img/personaje/ropa/costa-nina-3.jpeg', etiqueta: 'Traje de la Costa 3', familia: 'nina' },
+    { id: 'selva_nina', imagen: 'img/personaje/ropa/selva-nina.jpeg', etiqueta: 'Traje de la Selva', familia: 'nina' },
+    { id: 'sierra_nina', imagen: 'img/personaje/ropa/sierra-nina.jpeg', etiqueta: 'Traje de la Sierra', familia: 'nina' },
+    { id: 'costa_nino', imagen: 'img/personaje/ropa/costa-nino.jpeg', etiqueta: 'Traje de la Costa', familia: 'nino' },
+    { id: 'selva_nino_1', imagen: 'img/personaje/ropa/selva-nino-1.jpeg', etiqueta: 'Traje de la Selva', familia: 'nino' },
+    { id: 'selva_nino_2', imagen: 'img/personaje/ropa/selva-nino-2.jpeg', etiqueta: 'Traje de la Selva 2', familia: 'nino' },
+    { id: 'sierra_nino', imagen: 'img/personaje/ropa/sierra-nino.jpeg', etiqueta: 'Traje de la Sierra', familia: 'nino' },
+    { id: 'sierra_nino_1', imagen: 'img/personaje/ropa/sierra-nino-1.jpeg', etiqueta: 'Traje de la Sierra 2', familia: 'nino' },
+    { id: 'sierra_nino_2', imagen: 'img/personaje/ropa/sierra-nino-2.jpeg', etiqueta: 'Traje de la Sierra 3', familia: 'nino' },
   ];
 
   // Fondo detras del personaje en la vista previa (solo visual, no se
@@ -126,6 +140,10 @@ export class Personalizar {
       if (usuario.nombre_personaje) {
         this.nombrePersonaje.set(usuario.nombre_personaje);
       }
+
+      // Por si el traje guardado ya no existe (por ejemplo, una cuenta
+      // vieja con los colores de antes en vez de las fotos de ahora).
+      this.asegurarRopaValida();
     }
   }
 
@@ -133,8 +151,24 @@ export class Personalizar {
     return this.avatares[this.indiceAvatar()];
   }
 
+  // Solo los trajes del avatar elegido ahora (nina o nino).
+  get ropasDisponibles(): OpcionRopa[] {
+    return this.ropas.filter((r) => r.familia === this.avatarActual.familia);
+  }
+
   get ropaActual(): OpcionRopa {
-    return this.ropas.find((r) => r.id === this.ropaSeleccionada()) ?? this.ropas[0];
+    const disponibles = this.ropasDisponibles;
+    return disponibles.find((r) => r.id === this.ropaSeleccionada()) ?? disponibles[0];
+  }
+
+  // Si el traje elegido no es de la familia del avatar actual (por
+  // ejemplo, se cambio de nina a nino), pasa al primer traje valido para
+  // que la seleccion que se guarda siempre corresponda con el avatar que
+  // se ve en la vista previa.
+  private asegurarRopaValida() {
+    if (!this.ropasDisponibles.some((r) => r.id === this.ropaSeleccionada())) {
+      this.ropaSeleccionada.set(this.ropasDisponibles[0].id);
+    }
   }
 
   get fondoActual(): OpcionFondo {
@@ -161,14 +195,17 @@ export class Personalizar {
 
   avatarAnterior() {
     this.indiceAvatar.set((this.indiceAvatar() - 1 + this.avatares.length) % this.avatares.length);
+    this.asegurarRopaValida();
   }
 
   avatarSiguiente() {
     this.indiceAvatar.set((this.indiceAvatar() + 1) % this.avatares.length);
+    this.asegurarRopaValida();
   }
 
   seleccionarAvatar(indice: number) {
     this.indiceAvatar.set(indice);
+    this.asegurarRopaValida();
   }
 
   seleccionarPeinado(id: string) {

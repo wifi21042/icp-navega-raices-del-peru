@@ -61,11 +61,11 @@
       <section class="seccion">
         <h2>Ropa</h2>
         <div class="fila-opciones">
-          @for (ropa of ropas; track ropa.id) {
+          @for (ropa of ropasDisponibles; track ropa.id) {
             <button
               class="opcion-ropa"
               [class.seleccionado]="ropa.id === ropaSeleccionada()"
-              [style.background]="ropa.color"
+              [style.backgroundImage]="'url(' + ropa.imagen + ')'"
               [attr.aria-label]="ropa.etiqueta"
               [title]="ropa.etiqueta"
               (click)="seleccionarRopa(ropa.id)"
@@ -109,23 +109,24 @@
     </div>
 
     <div class="personalizar-vista-previa">
-      <div class="tarjeta-preview" [style.borderColor]="ropaActual.color">
-        <!-- A pedido de Alex: el nombre va arriba del personaje (antes
-             estaba abajo), y se quito la pildora con el nombre de la ropa
-             ("Poncho morado") porque ya se ve puesta en el personaje, la
-             etiqueta de texto quedaba de mas. -->
+      <div class="tarjeta-preview">
+        <!-- A pedido de Alex: el nombre va arriba del personaje, y la
+             ropa ahora son fotos de trajes de verdad en vez de colores.
+             Como son fotos completas (no recortes armados para encimar
+             sobre el cuerpo del personaje), no se dibujan encima del
+             personaje: se muestran en una tarjetita aparte, con foto y
+             nombre del traje elegido. -->
         <p class="nombre-preview">{{ nombrePersonaje() || 'Tu personaje' }}</p>
         <div class="circulo-piel" [style.backgroundImage]="'url(' + fondoActual.imagen + ')'">
           @if (imagenFallo(claveImagenAvatar(avatarActual))) {
             <span class="emoji-avatar">{{ avatarActual.emoji }}</span>
           } @else {
             <img class="imagen-avatar" [src]="imagenAvatarActual" alt="" (error)="marcarImagenFallida(claveImagenAvatar(avatarActual))" />
-            <!-- No tenemos dibujos de poncho de verdad para cada color, asi
-                 que dibujamos uno simple encima del personaje con CSS (un
-                 trapecio del color elegido, sobre los hombros/pecho) en vez
-                 de solo mostrar una etiqueta de texto separada debajo. -->
-            <div class="poncho-overlay" [style.background]="ropaActual.color"></div>
           }
+        </div>
+        <div class="traje-elegido">
+          <img class="traje-elegido__img" [src]="ropaActual.imagen" alt="" />
+          <span class="traje-elegido__etiqueta">{{ ropaActual.etiqueta }}</span>
         </div>
       </div>
     </div>
