@@ -45,25 +45,6 @@
       </section>
 
       <section class="seccion">
-        <h2>Peinados</h2>
-        <div class="fila-opciones">
-          @for (peinado of peinados; track peinado.id) {
-            <button
-              class="opcion-circulo"
-              [class.seleccionado]="peinado.id === peinadoSeleccionado()"
-              (click)="seleccionarPeinado(peinado.id)"
-            >
-              @if (imagenFallo(peinado.id)) {
-                {{ peinado.icono }}
-              } @else {
-                <img class="opcion-circulo__img" [src]="peinado.imagen" alt="" (error)="marcarImagenFallida(peinado.id)" />
-              }
-            </button>
-          }
-        </div>
-      </section>
-
-      <section class="seccion">
         <h2>Tono de piel</h2>
         <div class="fila-opciones">
           @for (tono of tonosPiel; track tono) {
