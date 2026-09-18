@@ -381,17 +381,33 @@
 .poncho-overlay {
   position: absolute;
   left: 50%;
-  top: 33%;
-  // El ancho crecio junto con el marco (ver .circulo-piel): el personaje
-  // ahora se ve mas "ancho" en proporcion al marco, asi que el poncho
-  // tiene que crecer igual para seguir quedando bien puesto en los
-  // hombros en vez de verse chico.
+  // Medido sobre las fotos reales del personaje (nina-*.png / nino-*.png):
+  // el cuello/hombro de la polera empieza como al 42% del alto del marco,
+  // no al 33% como estaba antes (por eso el poncho se veia flotando
+  // encima de la cara/menton en vez de sobre los hombros).
+  top: 42%;
   width: 77%;
-  height: 26%;
+  height: 27%;
   transform: translateX(-50%);
-  clip-path: polygon(32% 0%, 68% 0%, 100% 100%, 0% 100%);
-  border-radius: 4px;
-  opacity: 0.9;
+  // Forma de poncho real: un recorte en V para el cuello, hombros que
+  // bajan en diagonal y esquinas de abajo un poco recortadas (en vez de
+  // un trapecio simple con el borde de arriba recto, que se veia como
+  // una mancha de pintura encima del personaje).
+  clip-path: polygon(
+    38% 0%,
+    50% 8%,
+    62% 0%,
+    90% 20%,
+    100% 35%,
+    100% 90%,
+    92% 100%,
+    8% 100%,
+    0% 90%,
+    0% 35%,
+    10% 20%
+  );
+  opacity: 0.92;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.55);
   pointer-events: none;
 }
