@@ -174,7 +174,13 @@
 }
 
 .fila-opciones {
+  // Sin wrap, las filas de Peinados/Tono de piel/Ropa/Fondos se salian
+  // de la tarjeta en pantallas angostas (celular) -- como el fondo
+  // quedaba centrado, se recortaba por los dos lados y se veian las
+  // tarjetas como superpuestas/torcidas. Con wrap pasan a la siguiente
+  // linea en vez de desbordar.
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 18px;
 }
@@ -410,5 +416,15 @@
 @media (max-width: 620px) {
   .personalizar-tarjeta {
     flex-direction: column-reverse;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .personalizar-contenido {
+    padding: 14px;
+  }
+
+  .fila-opciones {
+    gap: 12px;
   }
 }
