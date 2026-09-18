@@ -323,16 +323,16 @@
 // scroll por la lista (se desactiva en el celular mas abajo, donde el
 // orden ya cambia y la vista previa aparece primero).
 .accesorios-vista-previa {
-  // Antes quedaba pegada arriba (sticky) y al bajar por la lista larga
-  // de insignias dejaba un espacio vacio feo abajo, a la derecha. Ahora
-  // se centra verticalmente en toda la altura de la tarjeta, para que
-  // el espacio libre quede parejo arriba y abajo en vez de solo abajo.
+  // A pedido de Alex: la tarjeta verde va arriba, alineada con el
+  // inicio de la lista de categorias (antes quedaba centrada en toda
+  // la altura de la tarjeta crema, y en pantallas anchas con muchas
+  // categorias se veia como flotando muy abajo, separada de todo).
   flex: 1 1 260px;
   min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: center;
+  align-self: flex-start;
 }
 
 .tarjeta-preview {
