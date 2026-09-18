@@ -420,6 +420,18 @@
     gap: 20px;
   }
 
+  // OJO: .personalizar-panel y .personalizar-vista-previa tienen un
+  // "flex-basis" pensado para cuando estan en fila (300/380px de
+  // ANCHO). Al pasar a columna (arriba) ese mismo numero pasa a ser el
+  // ALTO, lo que hacia que las tarjetas quedaran mal medidas y se
+  // vieran como superpuestas/torcidas una encima de la otra. Reseteando
+  // el flex-basis y poniendo 100% de ancho quedan apiladas prolijamente.
+  .personalizar-panel,
+  .personalizar-vista-previa {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
   .personalizar-contenido {
     padding: 14px;
   }
