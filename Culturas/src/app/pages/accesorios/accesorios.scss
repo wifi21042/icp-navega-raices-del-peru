@@ -179,14 +179,17 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   box-sizing: border-box;
-  background: #fff;
-  border: 3px solid transparent;
+  // Fondo con un leve degrade y un borde tenue del verde de la marca
+  // (antes blanco liso con borde transparente) para que combine mejor
+  // con la tarjeta verde de vista previa, a pedido de Alex.
+  background: linear-gradient(180deg, #ffffff 0%, #fbf7ec 100%);
+  border: 3px solid rgba(47, 107, 58, 0.1);
   border-radius: 14px;
   padding: 6px 4px;
   overflow: hidden;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(26, 77, 46, 0.08);
-  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .accesorio-card:hover:not(.accesorio-card--bloqueado) {
@@ -249,17 +252,35 @@
 }
 
 .accesorio-card--bloqueado {
-  filter: grayscale(1);
-  opacity: 0.65;
+  // Antes quedaba todo en gris plano (grayscale + opacity en toda la
+  // tarjeta), se veia como roto en vez de "bloqueado a proposito". Ahora
+  // solo el icono se apaga un poco y la tarjeta tiene un fondo propio
+  // (crema apagado), asi se nota que esta bloqueada sin verse fea.
+  background: linear-gradient(180deg, #f2efe4 0%, #eae4d2 100%);
+  border-color: rgba(122, 106, 74, 0.18);
+  box-shadow: none;
+  opacity: 1;
   cursor: not-allowed;
+}
+
+.accesorio-card--bloqueado .accesorio-card__icono {
+  filter: grayscale(1) opacity(0.55);
+}
+
+.accesorio-card--bloqueado .accesorio-card__etiqueta {
+  color: #8a7a5a;
 }
 
 .accesorio-card__candado {
   font-size: 0.52rem;
   line-height: 1;
-  color: #8a7a5a;
+  color: #7a6a4a;
   font-weight: 700;
   white-space: nowrap;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-top: 1px;
 }
 
 .nota {
