@@ -15,10 +15,15 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    // Registrar un usuario nuevo. Todavia no puede iniciar sesion: primero
-    // tiene que confirmar su correo (le llega un enlace), y ahi recien crea
-    // su contrasena, igual que las cuentas que entran por primera vez con
-    // Google.
+    // Registrar un usuario nuevo.
+    //
+    // NOTA (pedido de Alex, 2026-09-18): antes esto mandaba un correo de
+    // confirmacion y la cuenta quedaba bloqueada hasta que la persona
+    // abriera el enlace del correo. Como el envio de correos todavia no
+    // esta funcionando bien, por ahora se saca ese paso: la cuenta entra
+    // directo (como ya pasaba con Google) y va a la pantalla de crear
+    // contrasena. Cuando el envio de correos este listo, se puede volver
+    // a activar el paso de confirmacion aca.
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -30,23 +35,23 @@ class AuthController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $token = Str::random(64);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            // Nunca va a usar esta contrasena para entrar (todavia no ha
-            // creado la suya), asi que ponemos una al azar.
+            // Todavia no ha creado su contrasena de verdad (eso pasa en
+            // /crear-password, justo despues de esto), asi que ponemos
+            // una al azar por ahora.
             'password' => Hash::make(Str::random(40)),
-            'email_verified_at' => null,
-            'email_verification_token' => $token,
+            'email_verified_at' => now(),
+            'email_verification_token' => null,
             'password_usable' => false,
         ]);
 
-        $user->notify(new ConfirmarCuenta($token));
+        $token = $user->createToken('token')->plainTextToken;
 
         return response()->json([
-            'mensaje' => 'Te enviamos un correo para confirmar tu cuenta.',
+            'user' => $user,
+            'token' => $token,
         ], 201);
     }
 
