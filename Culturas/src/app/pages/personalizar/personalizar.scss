@@ -455,4 +455,22 @@
   .fila-opciones {
     gap: 12px;
   }
+
+  // El boton "Listo" se quedaba sin espacio junto al campo de texto y se
+  // salia de la pantalla en celulares angostos (no importaba la marca,
+  // pasaba en varios dispositivos distintos). En vez de intentar
+  // encogerlo, en celular se apilan: el campo de texto arriba y el boton
+  // abajo ocupando todo el ancho, asi nunca se corta sin importar el
+  // dispositivo.
+  .fila-nombre {
+    flex-wrap: wrap;
+  }
+
+  .fila-nombre input {
+    flex: 1 1 100%;
+  }
+
+  .boton-listo {
+    flex: 1 1 100%;
+  }
 }
