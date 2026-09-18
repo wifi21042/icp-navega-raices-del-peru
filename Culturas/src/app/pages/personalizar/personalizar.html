@@ -110,23 +110,19 @@
 
     <div class="personalizar-vista-previa">
       <div class="tarjeta-preview">
-        <!-- A pedido de Alex: el nombre va arriba del personaje, y la
-             ropa ahora son fotos de trajes de verdad en vez de colores.
-             Como son fotos completas (no recortes armados para encimar
-             sobre el cuerpo del personaje), no se dibujan encima del
-             personaje: se muestran en una tarjetita aparte, con foto y
-             nombre del traje elegido. -->
+        <!-- A pedido de Alex: el nombre va arriba del personaje, y ahora
+             el personaje se ve puesto el traje que se eligio de verdad
+             (foto combinada de personaje + traje + tono de piel). Si
+             todavia no existe esa combinacion exacta, se cae al
+             personaje "de siempre" y despues al emoji (ver
+             imagenPersonajeActual / onErrorImagenPersonaje). -->
         <p class="nombre-preview">{{ nombrePersonaje() || 'Tu personaje' }}</p>
         <div class="circulo-piel" [style.backgroundImage]="'url(' + fondoActual.imagen + ')'">
-          @if (imagenFallo(claveImagenAvatar(avatarActual))) {
+          @if (imagenFallo(claveImagenConRopa()) && imagenFallo(claveImagenAvatar(avatarActual))) {
             <span class="emoji-avatar">{{ avatarActual.emoji }}</span>
           } @else {
-            <img class="imagen-avatar" [src]="imagenAvatarActual" alt="" (error)="marcarImagenFallida(claveImagenAvatar(avatarActual))" />
+            <img class="imagen-avatar" [src]="imagenPersonajeActual" alt="" (error)="onErrorImagenPersonaje()" />
           }
-        </div>
-        <div class="traje-elegido">
-          <img class="traje-elegido__img" [src]="ropaActual.imagen" alt="" />
-          <span class="traje-elegido__etiqueta">{{ ropaActual.etiqueta }}</span>
         </div>
       </div>
     </div>

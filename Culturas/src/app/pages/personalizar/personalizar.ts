@@ -193,6 +193,41 @@ export class Personalizar {
     return `avatar_${avatar.id}_${this.tonoSeleccionado()}`;
   }
 
+  // A pedido de Alex: el personaje se ve puesto el traje elegido de
+  // verdad (no un cuadrito de foto aparte). Estas fotos combinadas
+  // (personaje + traje + tono de piel) viven en
+  // public/img/personaje/ropa-puesta/<familia>-<idRopa>-<tono>.png.
+  // Todavia no existen todas las combinaciones (falta niño entero y
+  // algunos tonos de niña), asi que si falta la foto exacta se usa el
+  // personaje "de siempre" (sin ropa puesta) como respaldo, y si esa
+  // tampoco carga, el emoji de siempre.
+  private rutaImagenConRopa(): string {
+    const tono = this.tonoSeleccionado().replace('#', '');
+    return `img/personaje/ropa-puesta/${this.avatarActual.familia}-${this.ropaActual.id}-${tono}.png`;
+  }
+
+  claveImagenConRopa(): string {
+    return `conropa_${this.avatarActual.id}_${this.ropaActual.id}_${this.tonoSeleccionado()}`;
+  }
+
+  get imagenPersonajeActual(): string {
+    if (this.imagenFallo(this.claveImagenConRopa())) {
+      return this.imagenAvatarActual;
+    }
+    return this.rutaImagenConRopa();
+  }
+
+  // Si falla la foto con el traje puesto, primero se intenta el
+  // personaje "de siempre" (sin ropa); si esa tambien falla, recien ahi
+  // se marca la del avatar y se cae al emoji.
+  onErrorImagenPersonaje() {
+    if (!this.imagenFallo(this.claveImagenConRopa())) {
+      this.marcarImagenFallida(this.claveImagenConRopa());
+      return;
+    }
+    this.marcarImagenFallida(this.claveImagenAvatar(this.avatarActual));
+  }
+
   avatarAnterior() {
     this.indiceAvatar.set((this.indiceAvatar() - 1 + this.avatares.length) % this.avatares.length);
     this.asegurarRopaValida();

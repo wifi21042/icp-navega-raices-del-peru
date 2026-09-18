@@ -380,40 +380,6 @@
   display: block;
 }
 
-// Tarjetita con la foto del traje elegido (antes era un trapecio de CSS
-// encima del personaje; ahora la ropa son fotos de trajes reales, que no
-// estan recortadas para encimarse sobre el cuerpo, asi que se muestran
-// aparte en vez de deformadas sobre el personaje).
-.traje-elegido {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
-  padding: 4px 16px 4px 4px;
-  max-width: 100%;
-}
-
-.traje-elegido__img {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top center;
-  background: #fff;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
-  flex-shrink: 0;
-}
-
-.traje-elegido__etiqueta {
-  color: #1a4d2e;
-  font-size: 0.85rem;
-  font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .nombre-preview {
   margin: 0;
   font-size: 1.2rem;
