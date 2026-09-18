@@ -84,6 +84,33 @@ class RetoController extends Controller
     private const HORA_ACTIVACION = 20; // 8pm
     private const DURACION_HORAS = 24;
 
+    // Activaciones extra, ademas del ciclo normal de todos los miercoles
+    // (pedido puntual de Alex: abrir los retos especiales un dia
+    // especifico sin tocar el horario de siempre). Cada fila es
+    // [inicio, fin] en UTC (el timezone de la app). Cuando ya paso esa
+    // fecha, deja de tener efecto solo y los retos vuelven a su ciclo
+    // normal de los miercoles; se puede borrar la fila cuando ya no
+    // haga falta.
+    private const VENTANAS_EXTRA = [
+        ['2026-09-18 00:00:00', '2026-09-20 00:00:00'], // Viernes 18 de setiembre 2026
+    ];
+
+    // Si "ahora" cae dentro de alguna activacion extra de la lista de
+    // arriba. Devuelve esa ventana [inicio, fin], o null si ninguna
+    // esta vigente ahorita.
+    private static function ventanaExtraActiva(): ?array
+    {
+        foreach (self::VENTANAS_EXTRA as [$inicioStr, $finStr]) {
+            $inicio = Carbon::parse($inicioStr, 'UTC');
+            $fin = Carbon::parse($finStr, 'UTC');
+            if (now()->between($inicio, $fin)) {
+                return [$inicio, $fin];
+            }
+        }
+
+        return null;
+    }
+
     // Calcula la ventana [inicio, fin] del ciclo semanal mas reciente
     // (el miercoles 8pm mas cercano que ya paso, hasta 24 horas
     // despues) para un reto especial recurrente. Null si el reto no es
@@ -114,6 +141,12 @@ class RetoController extends Controller
     {
         $ventana = self::ventanaSemanal($reto);
         if ($ventana === null) {
+            return true;
+        }
+
+        // Una activacion extra (ver VENTANAS_EXTRA) tambien cuenta,
+        // ademas del ciclo normal de los miercoles.
+        if (self::ventanaExtraActiva() !== null) {
             return true;
         }
 
@@ -149,11 +182,18 @@ class RetoController extends Controller
         $retos = array_map(function ($reto) use ($completados) {
             $completado = in_array($reto['id'], $completados, true);
             $ventana = self::ventanaSemanal($reto);
+            $ventanaExtra = self::ventanaExtraActiva();
             $activo = self::estaActivo($reto);
 
             $reto['completado'] = $completado;
             $reto['activo'] = $activo;
-            $reto['disponible_hasta'] = ($ventana !== null && $activo) ? $ventana[1]->toIso8601String() : null;
+            // Si esta activo por una activacion extra (no por el ciclo
+            // normal de miercoles), "disponible hasta" usa el fin de esa
+            // ventana extra en vez del fin del ciclo semanal normal (que
+            // en ese caso ya paso).
+            $reto['disponible_hasta'] = $activo
+                ? ($ventanaExtra !== null ? $ventanaExtra[1]->toIso8601String() : ($ventana !== null ? $ventana[1]->toIso8601String() : null))
+                : null;
             $reto['proxima_activacion'] = (! $completado) ? self::proximaActivacion($reto)?->toIso8601String() : null;
 
             // Las preguntas (con la respuesta correcta) solo se mandan
