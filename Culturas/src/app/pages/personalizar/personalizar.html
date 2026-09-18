@@ -129,6 +129,11 @@
 
     <div class="personalizar-vista-previa">
       <div class="tarjeta-preview" [style.borderColor]="ropaActual.color">
+        <!-- A pedido de Alex: el nombre va arriba del personaje (antes
+             estaba abajo), y se quito la pildora con el nombre de la ropa
+             ("Poncho morado") porque ya se ve puesta en el personaje, la
+             etiqueta de texto quedaba de mas. -->
+        <p class="nombre-preview">{{ nombrePersonaje() || 'Tu personaje' }}</p>
         <div class="circulo-piel" [style.backgroundImage]="'url(' + fondoActual.imagen + ')'">
           @if (imagenFallo(claveImagenAvatar(avatarActual))) {
             <span class="emoji-avatar">{{ avatarActual.emoji }}</span>
@@ -141,8 +146,6 @@
             <div class="poncho-overlay" [style.background]="ropaActual.color"></div>
           }
         </div>
-        <div class="etiqueta-ropa" [style.background]="ropaActual.color">{{ ropaActual.etiqueta }}</div>
-        <p class="nombre-preview">{{ nombrePersonaje() || 'Tu personaje' }}</p>
       </div>
     </div>
   </div>
