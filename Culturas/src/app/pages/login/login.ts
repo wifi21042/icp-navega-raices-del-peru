@@ -11,8 +11,8 @@ import { mostrarBotonGoogle } from '../../core/utils/google-login';
   templateUrl: './login.html',
 })
 export class Login implements AfterViewInit {
-  email = signal('demo@cultura.pe');
-  password = signal('123456');
+  email = signal('');
+  password = signal('');
   cargando = signal(false);
   error = signal('');
   exito = signal(false);
