@@ -81,9 +81,9 @@ export class Registro implements AfterViewInit {
     this.auth.registrar(this.name(), this.email()).subscribe({
       next: () => {
         this.cargando.set(false);
-        this.exito.set(true);
-        // La contrasena se crea despues de confirmar el correo (enlace que
-        // le mandamos), no hace falta pedirsela aca todavia.
+        // Por ahora (sin correo de confirmacion) entra directo a crear su
+        // contrasena, igual que cuando se registra con Google.
+        this.router.navigate(['/crear-password']);
       },
       error: (err) => {
         this.cargando.set(false);

@@ -212,10 +212,13 @@ export class Auth {
     );
   }
 
-  // Ya no pide contrasena aca: se registra solo con nombre y correo, y la
-  // contrasena se crea despues de confirmar el correo (en /crear-password).
+  // Se registra solo con nombre y correo. Por ahora (mientras el envio de
+  // correos no esta activo) entra directo, sin pasar por confirmar el
+  // correo, y la contrasena se crea justo despues en /crear-password.
   registrar(name: string, email: string) {
-    return this.http.post<{ mensaje: string }>(`${this.apiUrl}/register`, { name, email });
+    return this.http
+      .post<RespuestaAuth>(`${this.apiUrl}/register`, { name, email })
+      .pipe(tap((respuesta) => this.guardarSesion(respuesta)));
   }
 
   // Inicia sesion (o crea la cuenta si es la primera vez) usando el

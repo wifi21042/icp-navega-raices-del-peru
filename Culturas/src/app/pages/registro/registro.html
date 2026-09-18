@@ -29,13 +29,6 @@
     <div class="auth-tarjeta">
       <h1>Crear cuenta</h1>
 
-      @if (exito()) {
-        <p class="exito">
-          🎉 ¡Ya casi, {{ name() }}! Te mandamos un correo a {{ email() }}. Abre el enlace ahi
-          para confirmar tu cuenta y crear tu contrasena.
-        </p>
-        <a routerLink="/login" class="btn-enlace">Ir a iniciar sesion</a>
-      } @else {
         <label>
           <span class="label-texto">🧑 Nombre</span>
           <input
@@ -69,7 +62,6 @@
         <div id="boton-google-registro" class="boton-google-contenedor"></div>
 
         <p class="ayuda">¿Ya tienes cuenta? <a routerLink="/login">Inicia sesion</a></p>
-      }
     </div>
   </div>
 </div>
