@@ -245,7 +245,7 @@ export class Home {
   // Imagenes reales del proyecto, guardadas en public/img/
   // (todo lo que este en la carpeta "public" se sirve desde la raiz, por eso
   // se referencia como 'img/archivo.jpeg', sin escribir "public").
-  escudo = 'img/escudo.jpg';
+  escudo = 'img/escudo-removebg-preview.png';
   imagenHero = 'img/raices-del-peru.jpeg';
 
   // Se llena al cargar la pagina, pidiendo la lista real al servidor (con
